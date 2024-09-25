@@ -1,5 +1,5 @@
 <template>
-  <q-page class="row items-center justify-evenly">
+  <q-page class="row items-center justify-evenly" style="background-color: #dbedf5;">
     <LoginForm></loginForm>
    
   </q-page>
