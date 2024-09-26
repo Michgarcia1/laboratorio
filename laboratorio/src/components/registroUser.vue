@@ -1,15 +1,24 @@
 <template>
     <div class="q-pa-md row items-start q-gutter-md">
-      <q-card class="q-pa-md" style="width: 300px; height: 400px;">
-        <q-card-section>
+      <q-card class="q-pa-md" style="width: 300px; height: 450px;">
+        <div>
           <img alt="Mi icono" />
-        </q-card-section>
+          <p class="text-center text-subtitle1" style="font-weight: bold;">Crea una cuenta</p>
+        </div>
   
         <q-card-select>
           <div class="q-ma-md"> 
-            <p class="text-subtitle1" style="font-weight: bold;">Bienvenido</p>
+            
             <!-- Input -->
-            <p class="text-caption q-ma-none">Correo electrónico</p>
+            <p class="text-caption q-ma-none">Nombre</p>
+            <q-input
+              outlined 
+              type="text" 
+              v-model="email"
+              :dense="true"
+              />
+
+            <p class="text-caption q-mt-xs q-ma-none">Correo electrónico</p>
             <q-input
               outlined 
               type="email" 
@@ -17,7 +26,7 @@
               :dense="true"
               />
   
-            <p class="text-caption q-mt-md q-ma-none">Contraseña</p>
+            <p class="text-caption q-mt-xs q-ma-none">Contraseña</p>
             <q-input
               outlined 
               type="password" 
@@ -25,13 +34,19 @@
               :dense="true"
               icon="lock"
               />
-  
-            <p class="text-caption q-ma-none">
-              <a href="#" style="text-decoration: none; color: gray; font-size: 10px;">Olvidé mi contraseña</a>
-            </p>
+
+            <p class="text-caption q-mt-xs q-ma-none">Repetir contraseña</p>
+            <q-input
+              outlined 
+              type="password" 
+              v-model="password"
+              :dense="true"
+              icon="lock"
+              />
+
           </div>
   
-          <!-- Botón de Iniciar Sesión -->
+          <!-- Botón de Crear cuenta -->
           <q-card-actions>
             <q-btn 
               flat 
@@ -39,25 +54,23 @@
               no-caps 
               type="submit"
               style="width: 100%; background-color: #096393; color: white; font-size: 12px;" 
-              label="Iniciar sesión" 
+              label="Crear cuenta" 
               @click="handleLogin" 
             />
   
             <p class="text-caption q-ma-none" style="margin-left: 30px;">
-              ¿Aún no tienes cuenta? 
-              <button @click="() => router.push('/registro')" style="text-decoration: none; color: #096393;">Crea una</button>
+              ¿Ya tienes cuenta? 
+              <button @click="() => router.push('/')" style="text-decoration: none; color: #096393;">Iniciar sesión</button>
             </p>
           </q-card-actions>
         </q-card-select>
       </q-card>
-
-      
     </div>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
   
   const email = ref('');
   const password = ref('');
@@ -83,9 +96,4 @@
       alert('Correo o contraseña incorrectos.');
     }
   }
-  </script>
-  
-<style>
-
-</style>
-  
+</script>

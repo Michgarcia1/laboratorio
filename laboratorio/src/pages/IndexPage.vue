@@ -1,7 +1,6 @@
 <template>
-  <q-page class="row items-center justify-evenly" style="background-color: #dbedf5;">
-    <LoginForm></loginForm>
-   
+  <q-page class="row items-center justify-evenly" style="background-color: #E6EEF9;">
+    <LoginForm/>
   </q-page>
 </template>
 
