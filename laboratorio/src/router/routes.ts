@@ -11,6 +11,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [{ path: '', component: () => import('pages/registroUsuario.vue') }],
   },
+  {
+    path: '/recuperar-contraseña',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [{ path: '', component: () => import('pages/olvideContra.vue') }],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

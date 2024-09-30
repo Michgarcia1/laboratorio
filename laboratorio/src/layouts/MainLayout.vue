@@ -10,10 +10,10 @@
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
-
-        <q-toolbar-title>
+        <q-icon class="q-ml-xs q-mr-xs" style="width: 25px; height: 25px" name="img:public/icons/lab.png" />
+        <div class="text-h6" style="font-weight: bold;">
           Laboratorio VYMAR
-        </q-toolbar-title>
+        </div>
 
       </q-toolbar>
     </q-header>
@@ -55,7 +55,7 @@ defineOptions({
 const linksList: EssentialLinkProps[] = [
   {
     title: 'lab',
-    
+
   }
 ];
 
