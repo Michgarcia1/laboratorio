@@ -1,2 +1,2 @@
-# laboratorio
+# Laboratorio
 Residencia profesional
