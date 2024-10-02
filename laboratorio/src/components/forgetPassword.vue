@@ -65,7 +65,6 @@
     // Lógica para iniciar sesión
     if (email.value === 'usuario@example.com' && password.value === 'contraseña') {
       alert('Inicio de sesión exitoso');
-      // Redirigir a otra página
     } else {
       alert('Correo o contraseña incorrectos.');
     }
