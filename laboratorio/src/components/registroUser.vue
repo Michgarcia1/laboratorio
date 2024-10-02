@@ -68,31 +68,85 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { userData } from 'stores/userData';
+import { Notify } from 'quasar';
 
-  const text = ref('');
-  const email = ref('');
-  const password = ref('');
-  const passwordConfirm = ref('');
-  const router = useRouter('');
+const text = ref('');
+const email = ref('');
+const password = ref('');
+const passwordConfirm = ref('');
+const router = useRouter();
+const useUserData = userData();
 
-  const crearCuenta = () => {
-    // Validaciones
-    if (!email.value) {
-      alert('Por favor, ingresa tu correo electrónico.');
-      return;
-    }
+const usersDatabase = ref([]);
 
-    if (!password.value) {
-      alert('Por favor, ingresa tu contraseña.');
-      return;
-    }
-
-    // Lógica para iniciar sesión
-    if (email.value === 'usuario@example.com' && password.value === 'contraseña') {
-      alert('Inicio de sesión exitoso');
-      // Redirigir a otra página
-    } else {
-      alert('Correo o contraseña incorrectos.');
-    }
+const crearCuenta = () => {
+  // Validaciones
+  if (!text.value) {
+    Notify.create({
+      message: 'Por favor, ingresa tu nombre.',
+      type: 'warning',
+      icon: 'warning',
+      timeout: 2000,
+    });
+    return;
   }
+
+  if (!email.value || (email.value.match(/@/) || []).length !== 1) {
+    Notify.create({
+      message: !email.value
+        ? 'Por favor, ingresa tu correo electrónico.'
+        : 'Ingresar un correo electrónico válido.',
+      type: 'warning',
+      icon: 'warning',
+      timeout: 2000,
+    });
+    return;
+  }
+
+  if (!password.value) {
+    Notify.create({
+      message: 'Por favor, ingresa tu contraseña.',
+      type: 'warning',
+      icon: 'warning',
+      timeout: 2000,
+    });
+    return;
+  }
+
+  if (password.value !== passwordConfirm.value) {
+    Notify.create({
+      message: 'Las contraseñas no coinciden.',
+      type: 'warning',
+      icon: 'warning',
+      timeout: 2000,
+    });
+    return;
+  }
+
+  // Verificar si el usuario ya existe
+  const userExists = usersDatabase.value.find(user => user.email === email.value);
+  if (userExists) {
+    Notify.create({
+      message: 'Cuenta ya existente.',
+      type: 'warning',
+      icon: 'warning',
+      timeout: 2000,
+    });
+    return;
+  }
+
+  // Crear el nuevo usuario
+  usersDatabase.value.push({ name: text.value, email: email.value, password: password.value });
+  useUserData.setEmail(email.value);
+  useUserData.setPassword(password.value);
+  Notify.create({
+    message: 'Cuenta creada exitosamente.',
+    type: 'positive',
+    icon: 'check',
+    timeout: 2000,
+  });
+  // router.push('/');
+};
+
 </script>

@@ -54,37 +54,62 @@
 
 
     </div>
-  </template>
+</template>
 
-  <script setup>
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { userData } from 'stores/userData';
+import { Notify } from 'quasar';
 
-  const email = ref('');
-  const password = ref('');
-  const router = useRouter('');
+const email = ref('');
+const password = ref('');
+const router = useRouter();
+const useUserData = userData();
 
-  const login = () => {
-    // Validaciones
-    if (!email.value) {
-      alert('Por favor, ingresa tu correo electrónico.');
-      return;
-    }
-
-    if (!password.value) {
-      alert('Por favor, ingresa tu contraseña.');
-      return;
-    }
-
-    // Lógica para iniciar sesión
-    if (email.value === 'usuario@example.com' && password.value === 'contraseña') {
-      alert('Inicio de sesión exitoso');
-      // Redirigir a otra página
-    } else {
-      alert('Correo o contraseña incorrectos.');
-    }
+const login = () => {
+  // Validaciones
+  if (!email.value || (email.value.match(/@/g) || []).length !== 1) {
+    Notify.create({
+      message: !email.value
+        ? 'Por favor, ingresa tu correo electrónico.'
+        : 'Ingresar un correo electrónico válido.',
+      type: 'negative',
+      icon: 'warning',
+      timeout: 2000,
+    });
+    return;
   }
-  </script>
+
+  if (!password.value) {
+    Notify.create({
+      message: 'Por favor, ingresa tu contraseña.',
+      type: 'warning',
+      icon: 'warning',
+      timeout: 2000,
+    });
+    return;
+  }
+
+  if (useUserData.email === email.value && useUserData.password === password.value) {
+    Notify.create({
+      message: 'Inicio de sesión exitoso.',
+      type: 'positive',
+      icon: 'check',
+      timeout: 2000,
+    });
+    // router.push('/');
+  } else {
+    Notify.create({
+      message: 'Correo o contraseña incorrectos.',
+      type: 'negative',
+      icon: 'warning',
+      timeout: 2000,
+    });
+  }
+}
+
+</script>
 
 <style>
 

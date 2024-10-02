@@ -3,6 +3,7 @@
     <q-header flat style="background-color: white; color: black;">
       <q-toolbar>
         <q-btn
+          v-if="$q.screen.xs"
           flat
           dense
           round
@@ -21,6 +22,7 @@
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
+      v-if="$q.screen.xs"
       bordered
     >
       <q-list>
@@ -47,6 +49,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
+import {useQuasar} from 'quasar';
 
 defineOptions({
   name: 'MainLayout'
@@ -55,13 +58,14 @@ defineOptions({
 const linksList: EssentialLinkProps[] = [
   {
     title: 'lab',
-
   }
 ];
 
 const leftDrawerOpen = ref(false);
+const $q = useQuasar();
 
 function toggleLeftDrawer () {
+  console.log($q.screen.sm)
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>
