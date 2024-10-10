@@ -32,7 +32,7 @@
 
             <!-- Volver al inicio -->
             <p class="text-caption" style="margin-left: 65px;">
-              <button @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: grey;">Volver a iniciar sesión</button>
+              <q-btn @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: grey;">Volver a iniciar sesión</q-btn>
             </p>
           </q-card-actions>
         </q-card-select>

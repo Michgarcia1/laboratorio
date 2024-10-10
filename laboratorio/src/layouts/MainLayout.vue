@@ -3,7 +3,6 @@
     <q-header flat style="background-color: white; color: black;">
       <q-toolbar>
         <q-btn
-          v-if="$q.screen.xs"
           flat
           dense
           round
@@ -22,7 +21,6 @@
     <q-drawer
       v-model="leftDrawerOpen"
       show-if-above
-      v-if="$q.screen.xs"
       bordered
     >
       <q-list>
@@ -57,7 +55,13 @@ defineOptions({
 
 const linksList: EssentialLinkProps[] = [
   {
-    title: 'lab',
+    title: 'Exámenes clínicos',
+  },
+  {
+    title: 'Resultados',
+  },
+  {
+    title: 'Ubicación'
   }
 ];
 

@@ -28,7 +28,7 @@
 
             <!-- Contraseña -->
             <p class="text-caption q-ma-none">
-              <button @click="() => router.push('/recuperar-contraseña')" style="background: none; border: none; cursor: pointer; color: grey;">Olvidé mi contraseña</button>
+              <q-btn @click="() => router.push('/recuperar-contraseña')" style="background: none; border: none; cursor: pointer; color: grey;">Olvidé mi contraseña</q-btn>
             </p>
           </div>
 
@@ -92,12 +92,7 @@ const login = () => {
   }
 
   if (useUserData.email === email.value && useUserData.password === password.value) {
-    Notify.create({
-      message: 'Inicio de sesión exitoso.',
-      type: 'positive',
-      icon: 'check',
-      timeout: 2000,
-    });
+    router.push('/inicio');
     // router.push('/');
   } else {
     Notify.create({

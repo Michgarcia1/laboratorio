@@ -57,7 +57,7 @@
 
             <p class="text-caption q-ma-none" style="margin-left: 30px;">
               ¿Ya tienes cuenta?
-              <button @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: #096393;">Iniciar sesión</button>
+              <q-btn @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: #096393;">Iniciar sesión</q-btn>
             </p>
           </q-card-actions>
         </q-card-select>

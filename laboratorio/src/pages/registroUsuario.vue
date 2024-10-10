@@ -5,7 +5,6 @@
 </template>
 
 <script setup>
-
 import registroUser from 'src/components/registroUser.vue';
 
 </script>
