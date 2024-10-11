@@ -28,7 +28,7 @@
 
             <!-- Contraseña -->
             <p class="text-caption q-ma-none">
-              <q-btn @click="() => router.push('/recuperar-contraseña')" style="background: none; border: none; cursor: pointer; color: grey;">Olvidé mi contraseña</q-btn>
+              <button @click="() => router.push('/recuperar-contraseña')" style="background: none; border: none; cursor: pointer; color: grey;">Olvidé mi contraseña</button>
             </p>
           </div>
 
