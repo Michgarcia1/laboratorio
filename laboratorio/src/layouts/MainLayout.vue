@@ -14,7 +14,10 @@
         <div class="text-h6" style="font-weight: bold;">
           Laboratorio VYMAR
         </div>
+        <div class="flex justify-end q-gutter-md" style="flex-grow: 1;">
+          <button style="background: none; border: none; cursor: pointer; color: #096393; font-size: 15px; font-weight: bold">Cerrar sesión</button>
 
+        </div>
       </q-toolbar>
     </q-header>
 
