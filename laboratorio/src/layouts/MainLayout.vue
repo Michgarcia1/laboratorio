@@ -11,7 +11,9 @@
           @click="toggleLeftDrawer"
         />
         <q-icon class="q-ml-xs q-mr-xs" style="width: 25px; height: 25px" name="img:public/icons/lab.png" />
-        <div class="text-h6" style="font-weight: bold;">
+        <div class="text-h6"
+             style="font-weight: bold; cursor: pointer;"
+             @click="$router.push('/inicio')">
           Laboratorio VYMAR
         </div>
         <div class="flex justify-end q-gutter-md" style="flex-grow: 1;">
@@ -59,12 +61,15 @@ defineOptions({
 const linksList: EssentialLinkProps[] = [
   {
     title: 'Exámenes clínicos',
+    link: 'examenes-clinicos'
   },
   {
     title: 'Resultados',
+    link: 'resultados'
   },
   {
-    title: 'Ubicación'
+    title: 'Ubicación',
+    link: 'ubicacion'
   }
 ];
 

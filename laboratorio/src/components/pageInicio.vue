@@ -10,6 +10,7 @@
         <p>Laboratorio de Análisis Clínico</p>
       </div>
 
+      <!-- Trámites -->
       <div class="q-gutter-md"
            :style="$q.screen.lt.sm ? {  } : { display: 'flex', flexDirection: 'row', justifyContent: 'center' }">
         <q-card-section>
@@ -18,6 +19,7 @@
             flat
             icon="medical_services"
             size="100px"
+            @click="() => router.push('/examenes-clinicos')"
             :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
           <div>
             <p class="q-mt-sm text-center">Exámenes clínicos</p>
@@ -30,6 +32,7 @@
             flat
             icon="assignment"
             size="100px"
+            @click="() => router.push('/resultados')"
             :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
           <div>
             <p class="q-mt-sm text-center">Resultados</p>
@@ -40,16 +43,32 @@
           <q-btn
             class="icono"
             flat
+            icon="manage_accounts"
+            size="100px"
+            @click="() => router.push('/administrador')"
+            :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
+          <div>
+            <p class="q-mt-sm text-center">Administrador</p>
+          </div>
+        </q-card-section>
+
+        <q-card-section>
+          <q-btn
+            class="icono"
+            flat
             icon="place"
             size="100px"
+            @click="() => router.push('/ubicacion')"
             :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
           <div>
             <p class="q-mt-sm text-center">Ubicación</p>
           </div>
         </q-card-section>
+
       </div>
     </q-card>
 
+      <!-- Misión y Visión -->
       <div class="q-pb-md q-pa-md q-gutter-md row"
            :style="$q.screen.lt.sm ? {} : { display: 'flex', flexDirection: 'row', justifyContent: 'center' }">
 
@@ -68,7 +87,26 @@
             </q-card>
       </div>
 
+    <div class="q-pb-md q-pa-md q-gutter-md row"
+           :style="$q.screen.lt.sm ? {} : { display: 'flex', flexDirection: 'row', justifyContent: 'center' }">
 
+            <q-card class="my-card" flat>
+              <q-img
+                class="justify-end"
+                src="public/lab-vision.jpg"
+                :style="$q.screen.lt.sm ? {width: '100%'} : {}"
+              />
+            </q-card>
+
+          <div style="width: 100%; max-width: 500px;">
+            <span class="text-h2 text-bold">Visión</span>
+            <div class="q-mt-md justify"
+                 style="font-size: 16px">{{ vision }}</div>
+          </div>
+
+      </div>
+
+    <!-- Carousel -->
     <div class="q-pa-md">
       <q-carousel
         v-model="slide"
@@ -112,8 +150,10 @@
 <script setup>
 import { ref } from 'vue';
 import { useQuasar } from 'quasar';
+import {useRouter} from 'vue-router';
 
 const $q = useQuasar();
+const router = useRouter();
 
 const slide = ref('style');
 const text = 'Ofrecemos un amplio rango de pruebas clínicas diseñadas para detectar, prevenir y monitorear condiciones de salud';
@@ -122,7 +162,7 @@ const text3 = 'Nuestro equipo de profesionales está altamente capacitado para a
 const text4 = 'Ofrecemos análisis urgentes con resultados rápidos en situaciones de emergencia';
 
 const mision = 'Proporcionar servicios de diagnóstico clínico de alta calidad mediante pruebas precisas y oportunas, promoviendo salud y el bienestar de nuestros pacientes a través de la innovación, la experiencia en la atención y la integridad en todos nuestros procesos.';
-
+const vision = 'Ser reconocidos por nuestros servicios de diagnóstico clínico, destacando por nuestra capacidad de ofrecer pruebas precisas y oportunas. Buscamos promover la salud y el bienestar de nuestros pacientes a través de la innovación constante, la excelencia en la atención y la integridad en cada uno de nuestros procesos, garantizando así confianza y calidad en la atención sanitaria.';
 </script>
 
 <style scoped>
