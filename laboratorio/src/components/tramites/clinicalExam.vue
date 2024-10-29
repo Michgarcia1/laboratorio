@@ -10,7 +10,7 @@
 
       <div v-for="objeto in paginatedObjetos" :key="objeto.tipo">
         <q-card class="q-pa-md text-subtitle2"
-                :style="$q.screen.lt.sm ? { height: '120px', width: '350px', cursor: 'pointer'} : { height: '180px', width: '350px', cursor: 'pointer'}">
+                :style="$q.screen.lt.sm ? { height: '160px', width: '350px'} : { height: '180px', width: '350px'}">
 
           <div class="flex items-center" :style="$q.screen.lt.sm ? { } : { marginTop: '30px'}">
             <q-icon :name="objeto.icono" color="blue" size="80px" />
@@ -19,6 +19,14 @@
               <div class="text-h6 q-ml-sm">{{ objeto.nombre }}</div>
             </div>
           </div>
+              <q-card-actions class="justify-end">
+                <q-btn
+                  @click="$router.push('/proceso-de-compra')"
+                  no-caps
+                  size="14px"
+                  label="Añadir"
+                  style="background: #096393; color: white;"/>
+              </q-card-actions>
         </q-card>
       </div>
 
@@ -35,10 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { useQuasar } from 'quasar';
 import { ref, computed } from 'vue';
-
-const $q = useQuasar();
 
 const objetos = [
   { nombre: 'Biometria hematica', tipo: 'A', icono: 'bloodtype' },
@@ -66,6 +71,8 @@ const paginatedObjetos = computed(() => {
 const totalPages = computed(() => {
   return Math.ceil(objetos.length / itemsPerPage);
 });
+
+
 </script>
 
 <style scoped>

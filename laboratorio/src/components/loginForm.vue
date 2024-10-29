@@ -56,18 +56,20 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { userData } from 'stores/userData';
 import { Notify } from 'quasar';
+import {backend} from 'boot/axios';
+import {ResponseLogin} from 'src/interfaces/Interfaces';
 
 const email = ref('');
 const password = ref('');
 const router = useRouter();
 const useUserData = userData();
 
-const login = () => {
+const login = async () => {
   // Validaciones
   if (!email.value || (email.value.match(/@/g) || []).length !== 1) {
     Notify.create({
@@ -88,20 +90,19 @@ const login = () => {
       icon: 'warning',
       timeout: 2000,
     });
-    return;
   }
 
-  if (useUserData.email === email.value && useUserData.password === password.value) {
+  const response:ResponseLogin = await backend.post('/login/', {
+    email: email.value,
+    password: password.value,
+  });
+
+  if(response.status === 200 && response.data.access !== '') {
+    useUserData.setAccessToken(response.data.access)
+    useUserData.setRefreshToken(response.data.refresh)
     router.push('/inicio');
-    // router.push('/');
-  } else {
-    Notify.create({
-      message: 'Correo o contraseña incorrectos.',
-      type: 'negative',
-      icon: 'warning',
-      timeout: 2000,
-    });
   }
+
 }
 
 </script>

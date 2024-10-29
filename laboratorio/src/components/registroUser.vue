@@ -65,22 +65,25 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { userData } from 'stores/userData';
+// import { userData } from 'stores/userData';
 import { Notify } from 'quasar';
+import {backend} from 'boot/axios';
+import {ResponseRegister} from 'src/interfaces/Interfaces';
+
 
 const text = ref('');
 const email = ref('');
 const password = ref('');
 const passwordConfirm = ref('');
 const router = useRouter();
-const useUserData = userData();
+// const useUserData = userData();
 
-const usersDatabase = ref([]);
+// const usersDatabase = ref([]);
 
-const crearCuenta = () => {
+const crearCuenta = async () => {
   // Validaciones
   if (!text.value) {
     Notify.create({
@@ -124,28 +127,20 @@ const crearCuenta = () => {
     return;
   }
 
-  // Verificar si el usuario ya existe
-  const userExists = usersDatabase.value.find(user => user.email === email.value);
-  if (userExists) {
+  const response:ResponseRegister = await backend.post('register/', {
+    username: text.value,
+    email: email.value,
+    password: password.value,
+  }, {})
+  if(response.status === 201) {
     Notify.create({
-      message: 'Cuenta ya existente.',
-      type: 'warning',
-      icon: 'warning',
-      timeout: 2000,
-    });
-    return;
-  }
-
-  // Crear el nuevo usuario
-  usersDatabase.value.push({ name: text.value, email: email.value, password: password.value });
-  useUserData.setEmail(email.value);
-  useUserData.setPassword(password.value);
-  Notify.create({
     message: 'Cuenta creada exitosamente.',
     type: 'positive',
     icon: 'check',
     timeout: 2000,
   });
+  }
+  // Crear el nuevo usuario
   // router.push('/');
 };
 
