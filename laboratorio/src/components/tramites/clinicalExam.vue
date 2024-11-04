@@ -22,7 +22,12 @@
             </div>
             <q-card-actions class="justify-end">
               <q-btn
-                @click="$router.push('/proceso-de-compra')"
+                @click="() => {
+                  useProcesoCompra.setNombreServicio(objeto.nombre_servicio)
+                  useProcesoCompra.setIcono(objeto.icono)
+                  useProcesoCompra.setPrecio(objeto.precio_unitario_servicio)
+                  $router.push('/proceso-de-compra')
+                }"
                 no-caps
                 size="14px"
                 label="Añadir"
@@ -48,9 +53,10 @@
 import { ref, onMounted } from 'vue';
 import { backend } from 'boot/axios';
 import { ResponseServiciosClinicos, ServicioClinico } from 'src/interfaces/Interfaces';
-
+import { procesoCompra } from 'stores/procesoCompra';
 
 const servicios = ref<ServicioClinico[]>([]);
+const useProcesoCompra = procesoCompra()
 
 onMounted( async () => {
   const response:ResponseServiciosClinicos = await backend.get('/servicios-clinicos/')

@@ -43,10 +43,10 @@
       </q-card-section>
 
       <div class="q-pa-md text-h6">
-        Servicio:
+        Servicio: {{useProcesoCompra.nombre_servicio}}
       </div>
       <div class="q-pl-md text-h6 text-positive">
-        Total:
+        Total: ${{useProcesoCompra.precio}}
       </div>
 
       <q-card-actions class="q-gutter-md" style="height: 40%; justify-content: flex-end;">
@@ -61,9 +61,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Notify } from 'quasar';
+import { procesoCompra } from 'stores/procesoCompra';
 
 const date = ref('');
 const time = ref('');
+const useProcesoCompra = procesoCompra()
 
 
 // Definir el locale en español
