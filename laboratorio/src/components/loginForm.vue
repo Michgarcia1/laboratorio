@@ -97,6 +97,8 @@ const login = async () => {
     password: password.value,
   });
 
+  console.log(response.data, 'response')
+
   if(response.status === 200 && response.data.access !== '') {
     useUserData.setAccessToken(response.data.access)
     useUserData.setRefreshToken(response.data.refresh)
