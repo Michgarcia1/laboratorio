@@ -102,6 +102,8 @@ const login = async () => {
   if(response.status === 200 && response.data.access !== '') {
     useUserData.setAccessToken(response.data.access)
     useUserData.setRefreshToken(response.data.refresh)
+    useUserData.setUserId(response.data.user_id)
+
     router.push('/inicio');
   }
 

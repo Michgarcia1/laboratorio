@@ -4,6 +4,7 @@ export const userData = defineStore('userData', {
   state: () => ({
     email: '',
     password: '',
+    id_user: 0,
     access_token: '',
     refresh_token: '',
   }),
@@ -13,6 +14,9 @@ export const userData = defineStore('userData', {
     },
     setPassword(password:string){
       this.password = password
+    },
+    setUserId(id:number){
+      this.id_user = id
     },
     setAccessToken(access_token:string){
       this.access_token = access_token

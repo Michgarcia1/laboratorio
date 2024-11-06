@@ -16,7 +16,7 @@
               v-model="date"
               label="Fecha"
               color="blue"
-              mask="DD MMMM YYYY"
+              mask="YYYY-MM-DD"
               :locale="locale"
               :style="$q.screen.lt.sm ? {width: '330px', height: '350px'} : {}"
             />
@@ -62,10 +62,15 @@
 import { ref } from 'vue';
 import { Notify } from 'quasar';
 import { procesoCompra } from 'stores/procesoCompra';
+import {backend} from 'boot/axios';
+import {userData} from 'stores/userData';
+import { HoraCita } from 'src/interfaces/Interfaces';
+
 
 const date = ref('');
-const time = ref('');
+const time = ref<HoraCita>({ value: '', label: '' });
 const useProcesoCompra = procesoCompra()
+const useUserData = userData()
 
 
 // Definir el locale en español
@@ -84,7 +89,12 @@ const locale = {
 
 
 // Función para confirmar la cita
-const confirmAppointment = () => {
+const confirmAppointment = async () => {
+
+  const { access_token, id_user } = useUserData;
+  const { nombre_servicio, precio } = useProcesoCompra
+
+
   if (!date.value && !time.value) {
     Notify.create({
     message: 'Debes de seleccionar fecha y hora.',
@@ -107,12 +117,23 @@ const confirmAppointment = () => {
       timeout: 3000,
     })
   } else {
-    Notify.create({
-      message: `Cita confirmada para el ${date.value} a las ${time.value}`,
-      type: 'positive',
-      icon: 'check_circle',
-      timeout: 3000,
+
+    const formData = {
+      nombre_Cita: nombre_servicio,
+      total_cita: precio,
+      fecha_cita: date.value,
+      hora_cita: time.value.value,
+      user: id_user,
+    }
+    console.log(formData, 'data')
+    const response = await backend.post('registro-citas/', formData , {
+      headers:{
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'multipart/form-data',
+      },
     })
+    console.log('pasamos')
+    console.log(response)
   }
 };
 

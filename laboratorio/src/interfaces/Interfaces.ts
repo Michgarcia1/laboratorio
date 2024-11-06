@@ -6,6 +6,7 @@ export interface ResponseLogin{
     access: string;
     refresh: string,
     is_superuser: boolean;
+    user_id: number;
   };
 }
 
@@ -34,4 +35,10 @@ export interface ServicioClinico {
   icono: string;
   nombre_servicio: string;
   precio_unitario_servicio: number;
+}
+
+
+export interface HoraCita {
+  label: string,
+  value: string,
 }
