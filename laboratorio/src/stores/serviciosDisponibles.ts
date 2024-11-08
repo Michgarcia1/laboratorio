@@ -8,5 +8,10 @@ export const serviciosDisponibles = defineStore('serviciosDisponibles', {
     setServiciosDisponibles(servicios:ServicioClinico[]){
       this.servicios.push(...servicios);
     },
-  }
+    reset(){
+      this.$state = {
+        servicios : [] as ServicioClinico[]
+      }
+    }
+  },
 })

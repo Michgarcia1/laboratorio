@@ -4,7 +4,18 @@
          <clinicalExam/>
        </div>
       <div v-else>
-        <p> No hay nada</p>
+        <q-inner-loading :showing="true" class="q-gutter-md">
+          <q-spinner-gears size="50px" color="success" />
+          <div class="flex column items-center q-gutter-xs">
+            <p style="font-size: 1.2rem">Lo sentimos por el momento no tenemos servicios disponibles :(</p>
+            <q-btn
+              label="Regresar al inicio"
+
+              @click="$router.push('/inicio')"
+            />
+          </div>
+        </q-inner-loading>
+
       </div>
   </q-page>
 </template>
@@ -18,11 +29,12 @@ import { serviciosDisponibles } from 'stores/serviciosDisponibles';
 
 const useServiciosDisponibles = serviciosDisponibles();
 const contenido = ref(false)
+
 onMounted(async () => {
+  useServiciosDisponibles.reset()
   const response:ResponseServiciosClinicos = await backend.get('/servicios-clinicos/')
   if( response.data.results.length > 0 ){
     response.data.results.map((service) => {
-      console.log(service, 'map')
       useServiciosDisponibles.setServiciosDisponibles([service])
     })
     contenido.value = true

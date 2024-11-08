@@ -71,32 +71,9 @@ watch(() => useServiciosDisponibles.servicios, () => {
   console.log(servicios.value)
 })
 
-/*const objetos = [
-  { nombre: 'Biometria hematica', tipo: 'A', icono: 'bloodtype' },
-  { nombre: 'Química sanguínea', tipo: 'B', icono: 'local_hospital' },
-  { nombre: 'Perfil bioquímico 24', tipo: 'C', icono: 'bar_chart' },
-  { nombre: 'Reacciones febriles', tipo: 'D', icono: 'thermostat' },
-  { nombre: 'Grupo y RH', tipo: 'F', icono: 'bloodtype' },
-  { nombre: 'Prueba de embarazo', tipo: 'G', icono: 'pregnant_woman' },
-  { nombre: 'Antígeno dengue', tipo: 'H', icono: 'vaccines' },
-  { nombre: 'Antidoping 3 elementos', tipo: 'I', icono: 'check_circle_outline' },
-  { nombre: 'Antidoping 5 elementos', tipo: 'J', icono: 'check_circle_outline' },
-  { nombre: 'Curva de tolerancia', tipo: 'K', icono: 'timeline' },
-  { nombre: 'Exámen de orina', tipo: 'L', icono: 'water_drop' },
-];
-*/
 //Lógica del paginado
 const current = ref(1);
-// const itemsPerPage = 6;
 
-/*const paginatedObjetos = computed(() => {
-  const start = (current.value - 1) * itemsPerPage;
-  return objetos.slice(start, start + itemsPerPage);
-});*/
-
-/*const totalPages = computed(() => {
-  return Math.ceil(objetos.length / itemsPerPage);
-});*/
 
 
 </script>
