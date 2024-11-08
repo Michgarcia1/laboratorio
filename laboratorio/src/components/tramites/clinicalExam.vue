@@ -50,20 +50,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { backend } from 'boot/axios';
-import { ResponseServiciosClinicos, ServicioClinico } from 'src/interfaces/Interfaces';
+import { ref, watch, onMounted } from 'vue';
+import { serviciosDisponibles } from 'stores/serviciosDisponibles';
+import { ServicioClinico } from 'src/interfaces/Interfaces';
 import { procesoCompra } from 'stores/procesoCompra';
 
-const servicios = ref<ServicioClinico[]>([]);
+const useServiciosDisponibles = serviciosDisponibles()
 const useProcesoCompra = procesoCompra()
+const servicios = ref<ServicioClinico[]>([]);
 
-onMounted( async () => {
-  const response:ResponseServiciosClinicos = await backend.get('/servicios-clinicos/')
-  response.data.results.map((service) => {
-    servicios.value.push(service);
-  })
+
+onMounted(() => {
+  console.log(useServiciosDisponibles.servicios, 'useServiciosDisponibles.servicios')
+  servicios.value = useServiciosDisponibles.servicios
 })
+
+
+watch(() => useServiciosDisponibles.servicios, () => {
+  servicios.value = useServiciosDisponibles.servicios
+  console.log(servicios.value)
+})
+
 /*const objetos = [
   { nombre: 'Biometria hematica', tipo: 'A', icono: 'bloodtype' },
   { nombre: 'Química sanguínea', tipo: 'B', icono: 'local_hospital' },
@@ -94,6 +101,3 @@ const current = ref(1);
 
 </script>
 
-<style scoped>
-
-</style>

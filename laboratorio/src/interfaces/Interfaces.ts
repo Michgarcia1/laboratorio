@@ -10,11 +10,9 @@ export interface ResponseLogin{
   };
 }
 
-
 export interface ResponseRegister {
   status: number;
 }
-
 
 export interface ResponseServiciosClinicos {
   status: number;
@@ -36,7 +34,6 @@ export interface ServicioClinico {
   nombre_servicio: string;
   precio_unitario_servicio: number;
 }
-
 
 export interface HoraCita {
   label: string,

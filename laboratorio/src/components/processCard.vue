@@ -19,6 +19,7 @@
               mask="YYYY-MM-DD"
               :locale="locale"
               :style="$q.screen.lt.sm ? {width: '330px', height: '350px'} : {}"
+              @update:model-value="handleDateChange"
             />
             <q-select
               v-model="time"
@@ -28,6 +29,7 @@
               :options="options"
               label="Seleccionar hora"
               :style="$q.screen.lt.sm ? {width: '330px', height: '350px'} : {width: '345px'}"
+              :disable="!date"
             />
           </div>
         </div>
@@ -71,6 +73,10 @@ const date = ref('');
 const time = ref<HoraCita>({ value: '', label: '' });
 const useProcesoCompra = procesoCompra()
 const useUserData = userData()
+const options = ref<HoraCita[]>([]);
+
+const { access_token, id_user } = useUserData;
+const { nombre_servicio, precio } = useProcesoCompra
 
 
 // Definir el locale en español
@@ -87,12 +93,34 @@ const locale = {
   ]
 };
 
+const handleDateChange = async () => {
+  if (date.value) {
+    try {
+      const response = await backend.get(`verificar-citas/?fecha=${date.value}`, {
+        headers:{
+          'Authorization': `Bearer ${access_token}`,
+        },
+      });
+      options.value = response.data.horas_disponibles.map((hora:string) => {
+        const formato_hora = hora.split(':')
+        return {
+          label: `${formato_hora[0]}:${formato_hora[1]}`,
+          value: `${formato_hora[0]}:${formato_hora[1]}`,
+        }
+      });
+    } catch (error) {
+      Notify.create({
+        message: 'Error al obtener las horas disponibles.',
+        type: 'negative',
+        icon: 'error'
+      });
+    }
+  }
+};
+
 
 // Función para confirmar la cita
 const confirmAppointment = async () => {
-
-  const { access_token, id_user } = useUserData;
-  const { nombre_servicio, precio } = useProcesoCompra
 
 
   if (!date.value && !time.value) {
@@ -132,24 +160,19 @@ const confirmAppointment = async () => {
         'Content-Type': 'multipart/form-data',
       },
     })
-    console.log('pasamos')
     console.log(response)
+    Notify.create({
+      message: `Cita confirmada para el ${date.value} a las ${time.value.value}`,
+      type: 'positive',
+      icon: 'check_circle',
+      timeout: 3000,
+    })
+    date.value = ''
+    time.value.label = ''
+    time.value.value = ''
   }
 };
 
-const options = Array.from({ length: (14 - 7 + 1) * 4 }, (_, i) => {
-  const hour = Math.floor(i / 4) + 7;
-  const minuteOptions = [0, 15, 30, 45];
-  const minute = minuteOptions[i % 4];
-  return {
-    label: `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`,
-    value: `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`,
-  };
-});
 
 
 </script>
-
-<style scoped>
-
-</style>
