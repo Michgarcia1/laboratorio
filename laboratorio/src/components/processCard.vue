@@ -161,6 +161,8 @@ const confirmAppointment = async () => {
       },
     })
     console.log(response)
+    const dia = new Date(date.value)
+    console.log(dia)
     Notify.create({
       message: `Cita confirmada para el ${date.value} a las ${time.value.value}`,
       type: 'positive',
