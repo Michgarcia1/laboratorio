@@ -17,12 +17,13 @@ export interface ResponseRegister {
 export interface ResponseServiciosClinicos {
   status: number;
   data: {
+    total_pages: number;
     results: [
       {
         activo: boolean,
         icono: string,
         nombre_servicio: string,
-        precio_unitario_servicio: number
+        precio_unitario_servicio: number,
       }
     ]
   }
