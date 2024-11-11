@@ -2,19 +2,10 @@
   <q-layout>
     <q-header flat style="background-color: white; color: black;">
       <q-toolbar>
-        <q-btn
-          v-if="useUSerData.access_token !== ''"
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
         <q-icon class="q-ml-xs q-mr-xs" style="width: 25px; height: 25px" name="img:public/icons/lab.png" />
         <div class="text-h6"
              style="font-weight: bold; cursor: pointer;"
-             @click="$router.push('/inicio')">
+             @click="irAInicio">
           Laboratorio VYMAR
         </div>
         <div class="flex justify-end q-gutter-md" style="flex-grow: 1;">
@@ -23,20 +14,6 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered>
-      <q-list>
-        <q-item-label header>
-          Sugerencias
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -44,13 +21,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
 import { useQuasar } from 'quasar';
 import { userData } from 'stores/userData';
 import { useRouter } from 'vue-router';
-import {backend} from 'boot/axios';
-
+import { backend } from 'boot/axios';
 
 defineOptions({
   name: 'MainLayout'
@@ -59,7 +33,12 @@ defineOptions({
 const useUSerData = userData();
 const router = useRouter();
 const $q = useQuasar();
-const leftDrawerOpen = ref(useUSerData.access_token !== '');
+
+const irAInicio = () => {
+  if (useUSerData.access_token !== '') {
+    router.push('/inicio');
+  }
+};
 
 const cerrarSesion = async () => {
   try {
@@ -77,7 +56,7 @@ const cerrarSesion = async () => {
 
     $q.notify({
       type: 'positive',
-      message: 'Sesión cerrada exitosamente',
+      message: 'Sesión finalizada con éxito',
       icon: 'check',
       position: 'top'
     });
@@ -94,24 +73,4 @@ const cerrarSesion = async () => {
     });
   }
 };
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Exámenes clínicos',
-    link: 'examenes-clinicos'
-  },
-  {
-    title: 'Resultados',
-    link: 'resultados'
-  },
-  {
-    title: 'Ubicación',
-    link: 'ubicacion'
-  }
-];
-
-function toggleLeftDrawer() {
-  console.log($q.screen.sm);
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
 </script>
