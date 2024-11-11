@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { serviciosDisponibles } from 'stores/serviciosDisponibles';
 import { ServicioClinico } from 'src/interfaces/Interfaces';
 import { procesoCompra } from 'stores/procesoCompra';
@@ -81,10 +81,13 @@ const total_page = ref(0)
 
 
 onMounted(async() => {
+  peticionServicios()
+})
+
+const peticionServicios = async () => {
   useServiciosDisponibles.reset()
-  const response:ResponseServiciosClinicos = await backend.get('/servicios-clinicos/')
+  const response:ResponseServiciosClinicos = await backend.get(`/servicios-clinicos/?page=${current.value}`)
   if( response.data.results.length > 0 ){
-    console.log(response.data, 'rer')
     total_page.value = response.data.total_pages
     response.data.results.map((service) => {
       useServiciosDisponibles.setServiciosDisponibles([service])
@@ -99,7 +102,13 @@ onMounted(async() => {
   }else{
     contenido.value = false
   }
+}
+
+watch(() => current.value, () => {
+  console.log('entrnando')
+  peticionServicios()
 })
+
 
 </script>
 
