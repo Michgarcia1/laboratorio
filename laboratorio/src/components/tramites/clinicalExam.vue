@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch} from 'vue';
 import { serviciosDisponibles } from 'stores/serviciosDisponibles';
 import { ServicioClinico } from 'src/interfaces/Interfaces';
 import { procesoCompra } from 'stores/procesoCompra';
@@ -105,7 +105,6 @@ const peticionServicios = async () => {
 }
 
 watch(() => current.value, () => {
-  console.log('entrnando')
   peticionServicios()
 })
 

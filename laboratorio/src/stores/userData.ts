@@ -5,7 +5,7 @@ export const userData = defineStore('userData', {
     email: '',
     password: '',
     id_user: 0,
-    access_token: '',
+    access_token: sessionStorage.getItem('access') ? sessionStorage.getItem('access') : '',
     refresh_token: '',
   }),
   actions:{
