@@ -5,7 +5,7 @@
           <q-icon class="q-mt-md" style="width: 50px; height: 50px" name="img:public/icons/lab.png" />
         </div>
 
-        <q-card-select>
+        <q-form submit="login">
           <div class="q-mt-md q-ml-md q-mr-md">
             <p class="text-subtitle1" style="font-weight: bold;">Bienvenido</p>
             <!-- Input -->
@@ -27,8 +27,8 @@
 
 
             <!-- Contraseña -->
-            <p class="text-caption q-ma-none">
-              <button @click="() => router.push('/recuperar-contraseña')" style="background: none; border: none; cursor: pointer; color: grey;">Olvidé mi contraseña</button>
+            <p class="text-caption q-ma-none q-mt-xs">
+              <a @click="() => router.push('/recuperar-contraseña')" style="background: none; border: none; cursor: pointer; color: grey;">Olvidé mi contraseña</a>
             </p>
           </div>
 
@@ -46,10 +46,10 @@
 
             <p class="text-caption q-ma-none" style="margin-left: 30px;">
               ¿Aún no tienes cuenta?
-              <button @click="() => router.push('/registro')" style="background: none; border: none; cursor: pointer; color: #096393;">Crea una</button>
+              <a @click="() => router.push('/registro')" style="background: none; border: none; cursor: pointer; color: #096393;">Crea una</a>
             </p>
           </q-card-actions>
-        </q-card-select>
+        </q-form>
       </q-card>
 
 
@@ -92,17 +92,27 @@ const login = async () => {
     });
   }
 
-  const response:ResponseLogin = await backend.post('/login/', {
+  const response: ResponseLogin = await backend.post('/login/', {
     email: email.value,
     password: password.value,
   });
 
-  console.log(response.data, 'response')
+  if (response.status === 200 && response.data.access !== '') {
+    // Guardar los datos del usuario en sessionStorage
+    sessionStorage.setItem('user_data', JSON.stringify({
+      access: response.data.access,
+      refresh: response.data.refresh,
+      user_id: response.data.user_id,
+      is_superuser: response.data.is_superuser,  // Asegúrate de que este dato esté disponible en la respuesta
+    }));
 
-  if(response.status === 200 && response.data.access !== '') {
+    // Guardar el token de acceso por separado si es necesario
+    sessionStorage.setItem('access', response.data.access);
+
+    // Guardar el token de refresh si es necesario
     useUserData.setAccessToken(response.data.access)
-    useUserData.setRefreshToken(response.data.refresh)
-    useUserData.setUserId(response.data.user_id)
+    useUserData.setRefreshToken(response.data.refresh);
+    useUserData.setUserId(response.data.user_id);
 
     router.push('/inicio');
   }

@@ -5,7 +5,7 @@
           <q-icon class="q-mt-md" style="width: 50px; height: 50px" name="img:public/icons/lab.png" />
         </div>
 
-        <q-card-select>
+        <q-form submit="crearCuenta">
           <div class="q-mt-md q-ml-md q-mr-md">
             <p class="text-subtitle1" style="font-weight: bold;">Crear cuenta</p>
             <!-- Input -->
@@ -33,7 +33,7 @@
               :dense="true"
               />
 
-            <p class="text-caption q-mt-xs q-ma-none">Repetir contraseña</p>
+            <p class="text-caption q-mt-xs q-ma-none">Confirmar contraseña</p>
             <q-input
               outlined
               type="password"
@@ -57,10 +57,10 @@
 
             <p class="text-caption q-ma-none" style="margin-left: 30px;">
               ¿Ya tienes cuenta?
-              <button @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: #096393;">Iniciar sesión</button>
+              <a @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: #096393;">Iniciar sesión</a>
             </p>
           </q-card-actions>
-        </q-card-select>
+        </q-form>
       </q-card>
     </div>
 </template>
@@ -127,21 +127,32 @@ const crearCuenta = async () => {
     return;
   }
 
-  const response:ResponseRegister = await backend.post('register/', {
-    username: text.value,
-    email: email.value,
-    password: password.value,
-  }, {})
-  if(response.status === 201) {
+  try{
+      const response:ResponseRegister = await backend.post('register/', {
+      username: text.value,
+      email: email.value,
+      password: password.value,
+    }, {})
+
+    if(response.status === 201) {
+      Notify.create({
+      message: 'Cuenta creada exitosamente.',
+      type: 'positive',
+      icon: 'check',
+      timeout: 2000,
+      });
+    }
+  }catch(error:unknown){
+
     Notify.create({
-    message: 'Cuenta creada exitosamente.',
-    type: 'positive',
-    icon: 'check',
-    timeout: 2000,
-  });
+      message: (error as { response: { data: {email: ''} } }).response.data.email,
+      type: 'negative',
+      icon: 'error',
+      timeout: 2000,
+      });
   }
-  // Crear el nuevo usuario
-  // router.push('/');
+
+
 };
 
 </script>

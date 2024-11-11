@@ -39,7 +39,7 @@
     <q-card
       flat
       class="my-card"
-      :style="$q.screen.lt.sm ? {width: '380px', height: '250px'} : {width: '300px', height: '250px'}">
+      :style="$q.screen.lt.sm ? {width: '380px', height: '250px'} : {width: '300px', height: '300px'}">
       <q-card-section class="bg-blue text-white">
         <div class="text-h6">Resumen de la cita</div>
       </q-card-section>
@@ -51,7 +51,7 @@
         Total: ${{useProcesoCompra.precio}}
       </div>
 
-      <q-card-actions class="q-gutter-md" style="height: 40%; justify-content: flex-end;">
+      <q-card-actions class="q-gutter-md" style="height: 50%; justify-content: flex-end;">
         <q-btn style="width: 100%" color="blue" no-caps @click="confirmAppointment">Confirmar cita</q-btn>
       </q-card-actions>
 
@@ -95,12 +95,15 @@ const locale = {
 
 const handleDateChange = async () => {
   if (date.value) {
+    console.log('dentro del if')
     try {
+      console.log(access_token, 'token')
       const response = await backend.get(`verificar-citas/?fecha=${date.value}`, {
         headers:{
-          'Authorization': `Bearer ${access_token}`,
+          'Authorization':`Bearer ${access_token}`,
         },
       });
+      console.log(response, 'response')
       options.value = response.data.horas_disponibles.map((hora:string) => {
         const formato_hora = hora.split(':')
         return {

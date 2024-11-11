@@ -17,25 +17,15 @@
              @click="$router.push('/inicio')">
           Laboratorio VYMAR
         </div>
-        <div>
-        </div>
         <div class="flex justify-end q-gutter-md" style="flex-grow: 1;">
-          <!--<div>
-            <q-btn flat icon="shopping_cart" size="18px" @click="$router.push('/proceso-de-compra')" style="background: none; border: none; cursor: pointer; color: #096393;"/>
-          </div>-->
-          <button style="background: none; border: none; cursor: pointer; color: #096393; font-size: 15px; font-weight: bold">Cerrar sesión</button>
+          <a v-if="useUSerData.access_token !== ''" @click="cerrarSesion" style="background: none; border: none; cursor: pointer; color: #096393; font-size: 15px; font-weight: bold">Cerrar sesión</a>
         </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      bordered
-    >
+    <q-drawer v-model="leftDrawerOpen" bordered>
       <q-list>
-        <q-item-label
-          header
-        >
+        <q-item-label header>
           Sugerencias
         </q-item-label>
 
@@ -56,14 +46,54 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import EssentialLink, { EssentialLinkProps } from 'components/EssentialLink.vue';
-import {useQuasar} from 'quasar';
-import {userData} from 'stores/userData';
+import { useQuasar } from 'quasar';
+import { userData } from 'stores/userData';
+import { useRouter } from 'vue-router';
+import {backend} from 'boot/axios';
+
 
 defineOptions({
   name: 'MainLayout'
 });
 
-const useUSerData = userData()
+const useUSerData = userData();
+const router = useRouter();
+const $q = useQuasar();
+const leftDrawerOpen = ref(useUSerData.access_token !== '');
+
+const cerrarSesion = async () => {
+  try {
+    const { access_token, refresh_token } = useUSerData;
+
+    await backend.post('/logout/', { refresh: refresh_token }, {
+      headers: {
+        'Authorization': `Bearer ${access_token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    useUSerData.access_token = '';
+    useUSerData.refresh_token = '';
+
+    $q.notify({
+      type: 'positive',
+      message: 'Sesión cerrada exitosamente',
+      icon: 'check',
+      position: 'top'
+    });
+
+    await router.push('/');
+
+  } catch (error) {
+    console.error('Error al cerrar sesión:', error);
+    $q.notify({
+      type: 'negative',
+      message: 'No se pudo cerrar la sesión',
+      icon: 'error',
+      position: 'top'
+    });
+  }
+};
 
 const linksList: EssentialLinkProps[] = [
   {
@@ -80,11 +110,8 @@ const linksList: EssentialLinkProps[] = [
   }
 ];
 
-const leftDrawerOpen = ref(useUSerData.access_token !== '');
-const $q = useQuasar();
-
-function toggleLeftDrawer () {
-  console.log($q.screen.sm)
+function toggleLeftDrawer() {
+  console.log($q.screen.sm);
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
 </script>

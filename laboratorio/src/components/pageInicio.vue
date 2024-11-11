@@ -13,7 +13,7 @@
       <!-- Trámites -->
       <div class="q-gutter-md"
            :style="$q.screen.lt.sm ? {  } : { display: 'flex', flexDirection: 'row', justifyContent: 'center' }">
-        <q-card-section>
+        <q-card-section v-if="!isSuperuser">
           <q-btn
             class="icono"
             flat
@@ -26,7 +26,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="!isSuperuser">
           <q-btn
             class="icono"
             flat
@@ -39,7 +39,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="isSuperuser">
           <q-btn
             class="icono"
             flat
@@ -52,7 +52,7 @@
           </div>
         </q-card-section>
 
-        <q-card-section>
+        <q-card-section v-if="!isSuperuser">
           <q-btn
             class="icono"
             flat
@@ -148,12 +148,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import { useQuasar } from 'quasar';
 import {useRouter} from 'vue-router';
 
 const $q = useQuasar();
 const router = useRouter();
+
+const isSuperuser = ref(false);
+
 
 const slide = ref('style');
 const text = 'Ofrecemos un amplio rango de pruebas clínicas diseñadas para detectar, prevenir y monitorear condiciones de salud';
@@ -163,6 +166,15 @@ const text4 = 'Ofrecemos análisis urgentes con resultados rápidos en situacion
 
 const mision = 'Proporcionar servicios de diagnóstico clínico de alta calidad mediante pruebas precisas y oportunas, promoviendo salud y el bienestar de nuestros pacientes a través de la innovación, la experiencia en la atención y la integridad en todos nuestros procesos.';
 const vision = 'Ser reconocidos por nuestros servicios de diagnóstico clínico, destacando por nuestra capacidad de ofrecer pruebas precisas y oportunas. Buscamos promover la salud y el bienestar de nuestros pacientes a través de la innovación constante, la excelencia en la atención y la integridad en cada uno de nuestros procesos, garantizando así confianza y calidad en la atención sanitaria.';
+
+onMounted(() => {
+  const userData = JSON.parse(sessionStorage.getItem('user_data'));
+  if (userData && userData.is_superuser) {
+    isSuperuser.value = true;
+  }
+});
+
+
 </script>
 
 <style scoped>
