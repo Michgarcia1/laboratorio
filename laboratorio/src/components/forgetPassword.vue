@@ -38,36 +38,59 @@
         </q-card-select>
       </q-card>
 
-
+      <div class="q-pa-md q-gutter-sm">
+        <q-dialog v-model="showDialog">
+          <q-card>
+            <q-card-section>
+              {{messageResponse}}
+            </q-card-section>
+            <q-card-actions>
+              <q-btn @click="() => showDialog = !showDialog" color="primary" label="cerrar"/>
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
+      </div>
     </div>
   </template>
 
   <script setup>
   import { ref } from 'vue';
   import { useRouter } from 'vue-router';
+  import { backend } from 'boot/axios';
+  import { Loading, Notify } from 'quasar';
 
   const email = ref('');
-  const password = ref('');
   const router = useRouter('');
+  const showDialog = ref(false);
+  const messageResponse = ref('')
 
-  const login = () => {
+  const login = async() => {
+    Loading.show({
+      message: 'Enviando ...'
+    })
     // Validaciones
     if (!email.value) {
       alert('Por favor, ingresa tu correo electrónico.');
       return;
     }
 
-    if (!password.value) {
-      alert('Por favor, ingresa tu contraseña.');
-      return;
+    try{
+      const response = await backend.post('recovery-password/', {email: email.value});
+      if (response.status === 200) {
+        Loading.hide()
+        messageResponse.value = response.data.message
+        showDialog.value = true;
+      }
+    }catch(error){
+      Loading.hide()
+      Notify.create({
+        message: error.response.data.email,
+        type: 'warning',
+        icon: 'warning',
+        timeout: 2000,
+      });
     }
 
-    // Lógica para iniciar sesión
-    if (email.value === 'usuario@example.com' && password.value === 'contraseña') {
-      alert('Inicio de sesión exitoso');
-    } else {
-      alert('Correo o contraseña incorrectos.');
-    }
   }
   </script>
 
