@@ -1,5 +1,5 @@
 <template>
-    <div class="q-pa-md row items-start q-gutter-md">
+    <div class="q-pa-md  items-start q-gutter-md">
       <q-card class="q-pa-md" style="width: 300px; height: 380px;">
         <div class="q-ml-md">
           <q-icon class="q-mt-md" style="width: 50px; height: 50px" name="img:public/icons/lab.png" />
@@ -41,11 +41,11 @@
       <div class="q-pa-md q-gutter-sm">
         <q-dialog v-model="showDialog">
           <q-card>
-            <q-card-section>
+            <q-card-section class="q-ma-sm q-mt-lg" style="font-size: 16px; font-weight: bold;">
               {{messageResponse}}
             </q-card-section>
-            <q-card-actions>
-              <q-btn @click="() => showDialog = !showDialog" color="primary" label="cerrar"/>
+            <q-card-actions align="right">
+              <q-btn class="bg-grey-7 q-mr-xs q-mb-xs" no-caps @click="() => showDialog = !showDialog" color="primary" label="Cerrar"/>
             </q-card-actions>
           </q-card>
         </q-dialog>

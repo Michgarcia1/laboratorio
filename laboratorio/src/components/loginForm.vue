@@ -1,5 +1,5 @@
 <template>
-    <div class="q-pa-md row items-start q-gutter-md">
+    <div class="q-pa-md items-start q-gutter-md">
       <q-card class="q-pa-md" style="width: 300px; height: 450px;">
         <div class="q-ml-md">
           <q-icon class="q-mt-md" style="width: 50px; height: 50px" name="img:public/icons/lab.png" />

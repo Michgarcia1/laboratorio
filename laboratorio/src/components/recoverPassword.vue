@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
+  <div class="q-pa-md items-start q-gutter-md">
     <q-card class="q-pa-md" style="width: 300px; height: 450px">
       <div class="q-ml-md">
         <q-icon
@@ -69,12 +69,12 @@
     <div class="q-pa-md q-gutter-sm">
       <q-dialog v-model="showDialog">
         <q-card>
-          <q-card-section>
+          <q-card-section class="q-ma-sm q-mt-lg" style="width: 400px; font-size: 16px; font-weight: bold;">
             {{mensaje}}
           </q-card-section>
-          <q-card-actions>
-            <q-btn label="Cerrar" @click="() => showDialog = !showDialog" color="gray"/>
-            <q-btn label="Ir al inicio" @click="() => router.push('/')" color="primary"/>
+          <q-card-actions align="right">
+            <q-btn class="bg-grey-7 q-mb-xs" no-caps label="Cerrar" @click="() => showDialog = !showDialog" color="gray"/>
+            <q-btn class="q-mb-xs q-mr-xs" style="background: #096393; color: white" no-caps label="Ir al inicio" @click="() => router.push('/')"/>
           </q-card-actions>
         </q-card>
       </q-dialog>
