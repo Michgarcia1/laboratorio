@@ -5,7 +5,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: '/recuperar-contrasena', component: () => import('pages/olvideContra.vue') },
+      { path: '/olvide-contrasena', component: () => import('pages/olvideContra.vue') },
+      { path: '/restablecer-contrasena/:token/:user_id', component: () => import('pages/recuperarContra.vue') },
       { path: '/registro', component: () => import('pages/registroUsuario.vue')},
       { path: '/inicio', component: () => import('pages/paginaInicio.vue')},
       { path: '/examenes-clinicos', component: () => import('pages/tramites/clinicaExam.vue')},
@@ -22,6 +23,5 @@ const routes: RouteRecordRaw[] = [
     component: () => import('pages/ErrorNotFound.vue'),
   },
 ];
-
 
 export default routes;

@@ -5,9 +5,9 @@
           <q-icon class="q-mt-md" style="width: 50px; height: 50px" name="img:public/icons/lab.png" />
         </div>
 
-        <q-card-select>
+        <q-form submit="login">
           <div class="q-mt-md q-ml-md q-mr-md">
-            <p class="text-subtitle1" style="font-weight: bold;">Recuperar contraseña</p>
+            <p class="text-subtitle1" style="font-weight: bold;">Restablecer contraseña</p>
             <!-- Input -->
             <p class="text-caption q-ma-none q-mt-lg">Correo electrónico</p>
             <q-input
@@ -32,10 +32,10 @@
 
             <!-- Volver al inicio -->
             <p class="text-caption" style="margin-left: 65px;">
-              <button @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: grey;">Volver a iniciar sesión</button>
+              <a @click="() => router.push('/')" style="background: none; border: none; cursor: pointer; color: grey;">Volver a iniciar sesión</a>
             </p>
           </q-card-actions>
-        </q-card-select>
+        </q-form>
       </q-card>
 
       <div class="q-pa-md q-gutter-sm">
@@ -70,7 +70,13 @@
     })
     // Validaciones
     if (!email.value) {
-      alert('Por favor, ingresa tu correo electrónico.');
+      Loading.hide()
+      Notify.create({
+        message: 'Por favor ingresa tu correo electrónico',
+        type: 'warning',
+        icon: 'warning',
+        timeout: 2000,
+      });
       return;
     }
 
