@@ -2,7 +2,7 @@
   <q-layout>
     <q-header flat style="background-color: white; color: black;">
       <q-toolbar>
-        <q-icon class="q-ml-xs q-mr-xs" style="width: 25px; height: 25px" name="img:public/icons/lab.png" />
+        <q-icon class="q-ml-xs q-mr-xs" style="width: 25px; height: 25px" name="img:../../public/icons/lab.png" />
         <div class="text-h6"
              style="font-weight: bold; cursor: pointer;"
              @click="irAInicio">
