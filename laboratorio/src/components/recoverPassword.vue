@@ -118,12 +118,12 @@ const confirm = async () => {
   }
 
   const token = route.params.token;
-  const id_user = route.params.user_id;
+  const uuid_user = route.params.uuid_user;
 
   try {
     const response = await backend.post('recovery-password/password-send/', {
       token: token,
-      user_id: parseInt(id_user),
+      uuid_user: uuid_user,
       new_password: newPassword.value
     });
     if (response.status === 200) {
@@ -133,8 +133,14 @@ const confirm = async () => {
       showDialog.value = true;
     }
   } catch (error) {
-    console.log('no entro', error);
+    console.log(error)
     Loading.hide();
+    Notify.create({
+      message: error.response.data.token,
+      type: 'warning',
+      icon: 'warning',
+      timeout: 2000,
+    });
   }
 };
 </script>
