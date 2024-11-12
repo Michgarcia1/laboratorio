@@ -97,6 +97,8 @@ const login = async () => {
     password: password.value,
   });
 
+  console.log(response.data.user_id)
+
   if (response.status === 200 && response.data.access !== '') {
     // Guardar los datos del usuario en sessionStorage
     sessionStorage.setItem('user_data', JSON.stringify({
