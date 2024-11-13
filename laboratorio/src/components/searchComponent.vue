@@ -7,16 +7,17 @@
         option-label="numero_cita"
         option-value="numero_cita"
         input-debounce="0"
-        label="Buscar..."
+        label="Buscar cita"
         @filter="filterFn"
         :menu-anchor="false"
         :style="$q.screen.lt.sm ? {background: 'white', width: '70%'} : {background: 'white', width: '85%'}"
         behavior="menu"
       />
       <q-btn flat no-caps
-      label="Buscar"
+      :label="$q.screen.lt.sm ? '' : 'Buscar'"
+      icon="search"
        type="submit"
-      :style="$q.screen.lt.sm ? {fontWeight: 'bold', background: '#096393', color: 'white', width: '22%'} : {fontWeight: 'bold', background: '#096393', color: 'white', width: '11%' } "
+      :style="$q.screen.lt.sm ? {fontWeight: 'bold', background: '#096393', color: 'white', width: '22%' } : {fontWeight: 'bold', background: '#096393', color: 'white', width: '11%' } "
       />
 
     </div>
@@ -50,6 +51,7 @@ function filterFn (val, update) {
     options.value = stringOptions.value.filter(v => v.toLowerCase().indexOf(needle) > -1)
   })
 }
+
 </script>
 
 <style scoped>

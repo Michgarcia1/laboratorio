@@ -6,8 +6,12 @@
       Consulta tus resultados
     </div>
 
+    <searchComponent/>
+
   </div>
 
 </template>
 <script setup lang="ts">
+import searchComponent from 'components/searchComponent.vue'
+
 </script>
