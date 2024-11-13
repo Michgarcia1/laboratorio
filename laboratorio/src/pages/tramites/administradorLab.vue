@@ -23,7 +23,9 @@ import { backend } from 'boot/axios';
 
 const options = ref([])
 
-let stringOptions = []
+let stringOptions = [
+  'Google', 'Facebook'
+]
 
 onMounted(async () => {
   const response = await backend.get('registro-citas/')
