@@ -10,14 +10,14 @@
         label="Buscar cita"
         @filter="filterFn"
         :menu-anchor="false"
-        :style="$q.screen.lt.sm ? {background: 'white', width: '70%'} : {background: 'white', width: '85%'}"
+        :style="$q.screen.lt.sm ? {background: 'white', width: '73%'} : {background: 'white', width: '88%'}"
         behavior="menu"
       />
-      <q-btn flat no-caps
+      <q-btn no-caps
       :label="$q.screen.lt.sm ? '' : 'Buscar'"
       icon="search"
        type="submit"
-      :style="$q.screen.lt.sm ? {fontWeight: 'bold', background: '#096393', color: 'white', width: '22%' } : {fontWeight: 'bold', background: '#096393', color: 'white', width: '11%' } "
+      :style="$q.screen.lt.sm ? {fontWeight: 'bold', background: '#096393', color: 'white', width: '19%' } : {fontWeight: 'bold', background: '#096393', color: 'white', width: '10%' } "
       />
 
     </div>

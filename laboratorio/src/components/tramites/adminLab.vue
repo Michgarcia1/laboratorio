@@ -8,7 +8,6 @@
 
         <searchComponent/>
 
-
   </div>
 
 

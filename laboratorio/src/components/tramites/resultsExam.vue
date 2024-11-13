@@ -7,11 +7,13 @@
     </div>
 
     <searchComponent/>
+    <cardComponent/>
 
   </div>
 
 </template>
 <script setup lang="ts">
 import searchComponent from 'components/searchComponent.vue'
+import cardComponent from 'components/cardComponent.vue'
 
 </script>
