@@ -1,13 +1,17 @@
 import { defineStore } from 'pinia';
-import { CitasMedicas } from 'src/interfaces/Interfaces';
+import { ResultadosCitas } from 'src/interfaces/Interfaces';
 
 export const citasMedicas = defineStore('citasMedicas', {
   state: () => ({
-    citas: [] as CitasMedicas[],
+    citas: [] as ResultadosCitas[],
+    paginas: 0
   }),
   actions:{
-    setCitasMedicas(citasMedicas:CitasMedicas[]){
-      this.citas = [...citasMedicas]
+    setCitasMedicas(citasMedicas:ResultadosCitas[]){
+      this.citas = citasMedicas
     },
+    setPaginas(paginas:number){
+      this.paginas = paginas
+    }
   }
 })

@@ -63,7 +63,7 @@ export interface CitasMedicas extends Omit<ResponseServiciosClinicos, 'data'> {
   };
 }
 
-export interface ResultadosCitas extends Omit<ResponseServiciosClinicos, 'data'> {
+export interface ResultadosCitas{
   nombre_Cita: string;
   total_cita: number;
   pagado: boolean;

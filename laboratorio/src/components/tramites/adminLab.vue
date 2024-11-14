@@ -15,7 +15,7 @@
 
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { backend } from 'boot/axios';
 import { userData } from 'stores/userData';
 import { citasMedicas } from 'stores/citasMedicas';
@@ -25,7 +25,7 @@ import CardComponent from 'components/cardComponent.vue';
 
 const useCitasMedicas = citasMedicas()
 const {access_token} = userData()
-const dataCitas = ref([])
+const dataCitas = ref(useCitasMedicas.citas)
 
 onMounted(async () => {
   const response = await backend.get('registro-citas/', {
@@ -35,7 +35,11 @@ onMounted(async () => {
     }
   })
   useCitasMedicas.setCitasMedicas(response.data.results)
-  dataCitas.value = response.data.results
+})
+
+watch(() => useCitasMedicas.citas, (newValue) => {
+  console.log(newValue, 'valor desde el admin')
+  dataCitas.value = newValue
 })
 
 
