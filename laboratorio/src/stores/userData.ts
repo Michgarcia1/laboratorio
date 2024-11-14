@@ -7,6 +7,7 @@ export const userData = defineStore('userData', {
     id_user: 0,
     access_token: sessionStorage.getItem('access') ? sessionStorage.getItem('access') : '',
     refresh_token: '',
+    is_superuser: false
   }),
   actions:{
     setEmail(email:string){
@@ -23,6 +24,9 @@ export const userData = defineStore('userData', {
     },
     setRefreshToken(refresh_token:string){
       this.refresh_token = refresh_token
+    },
+    setIsSuperuser(isSuperuser:boolean){
+      this.is_superuser = isSuperuser
     }
   }
 })

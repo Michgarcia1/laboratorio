@@ -105,16 +105,14 @@ const login = async () => {
       access: response.data.access,
       refresh: response.data.refresh,
       user_id: response.data.user_id,
-      is_superuser: response.data.is_superuser,  // Asegúrate de que este dato esté disponible en la respuesta
+      is_superuser: response.data.is_superuser,
     }));
-
-    // Guardar el token de acceso por separado si es necesario
-    sessionStorage.setItem('access', response.data.access);
 
     // Guardar el token de refresh si es necesario
     useUserData.setAccessToken(response.data.access)
     useUserData.setRefreshToken(response.data.refresh);
     useUserData.setUserId(response.data.user_id);
+    useUserData.setIsSuperuser(response.data.is_superuser)
 
     router.push('/inicio');
   }

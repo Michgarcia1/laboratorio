@@ -29,15 +29,23 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { backend } from 'boot/axios';
+import { userData } from 'stores/userData';
 
 const options = ref([])
 const stringOptions = ref([])
 const selectedOption = ref('')
+const useUserData = userData()
 
 onMounted(async () => {
-  const response = await backend.get('registro-citas/')
-  stringOptions.value.push(...response.data.results)
-  options.value = stringOptions.value
+  if (useUserData.is_superuser){
+    const response = await backend.get('registro-citas/')
+    stringOptions.value.push(...response.data.results)
+    options.value = stringOptions.value
+  }else{
+    const response = await backend.get('registro-citas/')
+    stringOptions.value.push(...response.data.results)
+    options.value = stringOptions.value
+  }
 })
 
 function filterFn (val, update, abort) {
