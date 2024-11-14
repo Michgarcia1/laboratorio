@@ -1,17 +1,20 @@
 <template>
     <div class="q-gutter-sm q-ml-xs row">
       <q-select
+        filled
         outlined
+        :model-value="selectedOption"
         use-input
-        :options="options"
+        behavior="menu"
+        hide-selected
         option-label="numero_cita"
         option-value="numero_cita"
+        fill-input
         input-debounce="0"
-        label="Buscar cita"
+        :options="options"
         @filter="filterFn"
-        :menu-anchor="false"
+        @input-value="setModel"
         :style="$q.screen.lt.sm ? {background: 'white', width: '73%'} : {background: 'white', width: '88%'}"
-        behavior="menu"
       />
       <q-btn no-caps
       :label="$q.screen.lt.sm ? '' : 'Buscar'"
@@ -28,32 +31,27 @@ import { ref, onMounted } from 'vue'
 import { backend } from 'boot/axios';
 
 const options = ref([])
-
-const stringOptions = ref([
-  'Google', 'Facebook'
-])
+const stringOptions = ref([])
+const selectedOption = ref('')
 
 onMounted(async () => {
   const response = await backend.get('registro-citas/')
+  console.log(response.data.results)
   stringOptions.value.push(...response.data.results)
   options.value = stringOptions.value
+  console.log(options.value)
 })
 
-function filterFn (val, update) {
-  if (val === '') {
-    update(() => {
-      options.value = stringOptions.value
-    })
-    return
-  }
+function filterFn (val, update, abort) {
   update(() => {
-    const needle = val.toLowerCase()
-    options.value = stringOptions.value.filter(v => v.toLowerCase().indexOf(needle) > -1)
+    console.log(abort)
+    const needle = val.toLocaleLowerCase()
+    options.value = stringOptions.value.filter(v => v.numero_cita.toLocaleLowerCase().indexOf(needle) > -1)
   })
 }
 
+function setModel (val) {
+  selectedOption.value = val
+}
+
 </script>
-
-<style scoped>
-
-</style>
