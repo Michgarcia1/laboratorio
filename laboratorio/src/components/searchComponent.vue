@@ -36,10 +36,8 @@ const selectedOption = ref('')
 
 onMounted(async () => {
   const response = await backend.get('registro-citas/')
-  console.log(response.data.results)
   stringOptions.value.push(...response.data.results)
   options.value = stringOptions.value
-  console.log(options.value)
 })
 
 function filterFn (val, update, abort) {
