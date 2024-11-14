@@ -40,3 +40,13 @@ export interface HoraCita {
   label: string,
   value: string,
 }
+
+export interface CitaMedica {
+  nombre_Cita	: string,
+  total_cita: number,
+  pagado: boolean,
+  fecha_cita: string,
+  hora_cita: string,
+  numero_cita: string,
+  user: number
+}

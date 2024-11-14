@@ -34,18 +34,18 @@ import { userData } from 'stores/userData';
 const options = ref([])
 const stringOptions = ref([])
 const selectedOption = ref('')
-const useUserData = userData()
+
+const {access_token} = userData()
 
 onMounted(async () => {
-  if (useUserData.is_superuser){
-    const response = await backend.get('registro-citas/')
-    stringOptions.value.push(...response.data.results)
-    options.value = stringOptions.value
-  }else{
-    const response = await backend.get('registro-citas/')
-    stringOptions.value.push(...response.data.results)
-    options.value = stringOptions.value
-  }
+  const response = await backend.get('registro-citas/', {
+    headers: {
+      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  stringOptions.value.push(...response.data.results)
+  options.value = stringOptions.value
 })
 
 function filterFn (val, update, abort) {
