@@ -1,18 +1,21 @@
 <template>
   <div class="q-gutter-sm q-ml-xs row">
     <q-card
-    :style="$q.screen.lt.sm ? { width: '95%', height: '160px' } : { width: '49%', height: '150px'}"
+    :style="$q.screen.lt.sm ? { width: '95%', height: '190px' } : { width: '49%', height: '140px'}"
     class="q-mt-lg"
+    v-for="cita in props.data"
+    :key="cita.numero_cita"
     >
       <div class="q-ma-md">
-        <div class="text-h5 text-weight-bold">Cita: {{message}}</div>
-        <div class="text-subtitle2 text-grey-5">Tipo: PDF</div>
+        <div class="text-h5 text-weight-bold">Estudio: {{cita.nombre_Cita}}</div>
+        <div>Folio: <strong>{{cita.numero_cita}}</strong></div>
+        <!--<div class="text-subtitle2 text-grey-5">Tipo: PDF</div> -->
       </div>
 
-      <div class="flex justify-center">
+      <div class="flex justify-end q-mr-xs items-en">
         <q-btn no-caps
           class="q-mt-sm"
-          label="Descargar resultado"
+          :label="useUserData.is_superuser ? 'Subir resultado' : 'Descargar resultado'"
           style="width: 40%; background: #096393; color: white;"
         />
       </div>
@@ -22,9 +25,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import { ResultadosCitas } from 'src/interfaces/Interfaces';
+import { userData } from 'stores/userData';
 
-const message = '123'
+const props = defineProps<{
+  data: ResultadosCitas[];
+}>();
+const useUserData = userData();
 
 
 </script>

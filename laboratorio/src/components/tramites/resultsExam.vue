@@ -7,7 +7,7 @@
     </div>
 
     <searchComponent/>
-    <cardComponent/>
+    <cardComponent :data="dataCitas"/>
 
   </div>
 
@@ -15,5 +15,25 @@
 <script setup lang="ts">
 import searchComponent from 'components/searchComponent.vue'
 import cardComponent from 'components/cardComponent.vue'
+import { onMounted, ref } from 'vue'
+import { backend } from 'boot/axios';
+import { userData } from 'stores/userData';
+import { citasMedicas } from 'stores/citasMedicas';
+
+
+const useCitasMedicas = citasMedicas()
+const {access_token} = userData()
+const dataCitas = ref([])
+
+onMounted(async () => {
+  const response = await backend.get('registro-citas/', {
+    headers: {
+      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  useCitasMedicas.setCitasMedicas(response.data.results)
+  dataCitas.value = response.data.results
+})
 
 </script>

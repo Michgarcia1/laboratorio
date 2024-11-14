@@ -27,30 +27,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { backend } from 'boot/axios';
-import { userData } from 'stores/userData';
+import { ref, watch } from 'vue'
+// import { backend } from 'boot/axios';
+import { citasMedicas } from 'stores/citasMedicas';
 
 const options = ref([])
 const stringOptions = ref([])
 const selectedOption = ref('')
+const useCitasMedicas = citasMedicas()
 
-const {access_token} = userData()
-
-onMounted(async () => {
-  const response = await backend.get('registro-citas/', {
-    headers: {
-      'Authorization': 'Bearer ' + access_token,
-      'Content-Type': 'multipart/form-data'
-    }
-  })
-  stringOptions.value.push(...response.data.results)
+watch(() => useCitasMedicas.citas, (newValue) => {
+  stringOptions.value.push(...newValue)
   options.value = stringOptions.value
 })
 
-function filterFn (val, update, abort) {
+function filterFn (val, update) {
   update(() => {
-    console.log(abort)
     const needle = val.toLocaleLowerCase()
     options.value = stringOptions.value.filter(v => v.numero_cita.toLocaleLowerCase().indexOf(needle) > -1)
   })

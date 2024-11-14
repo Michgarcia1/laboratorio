@@ -41,12 +41,41 @@ export interface HoraCita {
   value: string,
 }
 
-export interface CitaMedica {
-  nombre_Cita	: string,
-  total_cita: number,
-  pagado: boolean,
-  fecha_cita: string,
-  hora_cita: string,
-  numero_cita: string,
+export interface CitasMedicas extends Omit<ResponseServiciosClinicos, 'data'> {
+  data: {
+    total_pages: number;
+    results: {
+      nombre_Cita: string;
+      total_cita: number;
+      pagado: boolean;
+      fecha_cita: string;
+      hora_cita: string;
+      numero_cita: string;
+      user: number
+      folio_cita: [
+        {
+          cita: number;
+          archivo: string;
+          fecha_subida: string;
+        }
+      ]
+    }[];
+  };
+}
+
+export interface ResultadosCitas extends Omit<ResponseServiciosClinicos, 'data'> {
+  nombre_Cita: string;
+  total_cita: number;
+  pagado: boolean;
+  fecha_cita: string;
+  hora_cita: string;
+  numero_cita: string;
   user: number
+  folio_cita: [
+    {
+      cita: number;
+      archivo: string;
+      fecha_subida: string;
+    }
+  ]
 }

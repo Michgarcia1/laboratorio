@@ -6,7 +6,8 @@
       Buscar resultados
     </div>
 
-        <searchComponent/>
+    <searchComponent/>
+    <CardComponent :data="dataCitas" />
 
   </div>
 
@@ -14,7 +15,28 @@
 
 </template>
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import { backend } from 'boot/axios';
+import { userData } from 'stores/userData';
+import { citasMedicas } from 'stores/citasMedicas';
 import searchComponent from 'components/searchComponent.vue'
+import CardComponent from 'components/cardComponent.vue';
+
+
+const useCitasMedicas = citasMedicas()
+const {access_token} = userData()
+const dataCitas = ref([])
+
+onMounted(async () => {
+  const response = await backend.get('registro-citas/', {
+    headers: {
+      'Authorization': 'Bearer ' + access_token,
+      'Content-Type': 'multipart/form-data'
+    }
+  })
+  useCitasMedicas.setCitasMedicas(response.data.results)
+  dataCitas.value = response.data.results
+})
 
 
 </script>
