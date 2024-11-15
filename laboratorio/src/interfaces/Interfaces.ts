@@ -71,7 +71,7 @@ export interface ResultadosCitas{
   hora_cita: string;
   numero_cita: string;
   user: number
-  folio_cita: [
+  resultados: [
     {
       cita: number;
       archivo: string;

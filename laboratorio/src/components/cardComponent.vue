@@ -14,8 +14,16 @@
 
       <div class="flex justify-end q-mr-xs items-en">
         <q-btn no-caps
+               v-if="!useUserData.is_superuser"
+               :disable="cita.resultados.length !== 1"
                class="q-mt-sm"
-               :label="useUserData.is_superuser ? 'Subir resultado' : 'Descargar resultado'"
+               label="Descargar resultado"
+               style="width: 40%; background: #096393; color: white;"
+        />
+        <q-btn no-caps
+               v-else
+               class="q-mt-sm"
+               label="Subir resultado"
                style="width: 40%; background: #096393; color: white;"
         />
       </div>
