@@ -14,7 +14,6 @@
 
       <div class="flex justify-end q-mr-xs items-en">
         <q-btn no-caps
-               :disable="cita.folio_cita.length !== 1"
                class="q-mt-sm"
                :label="useUserData.is_superuser ? 'Subir resultado' : 'Descargar resultado'"
                style="width: 40%; background: #096393; color: white;"

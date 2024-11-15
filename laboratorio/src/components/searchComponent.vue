@@ -17,10 +17,11 @@
       />
       <q-btn no-caps
              @click="() => buscarCita(selectedOption)"
-            :label="$q.screen.lt.sm ? '' : 'Buscar'"
-            icon="search"
-            type="submit"
-            :style="$q.screen.lt.sm ? {fontWeight: 'bold', background: '#096393', color: 'white', width: '19%' } : {fontWeight: 'bold', background: '#096393', color: 'white', width: '10%' } "
+             :disable="selectedOption === '' "
+             :label="$q.screen.lt.sm ? '' : 'Buscar'"
+             icon="search"
+             type="submit"
+             :style="$q.screen.lt.sm ? {fontWeight: 'bold', background: '#096393', color: 'white', width: '19%' } : {fontWeight: 'bold', background: '#096393', color: 'white', width: '10%' } "
       />
 
     </div>
