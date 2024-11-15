@@ -97,24 +97,14 @@ const login = async () => {
     password: password.value,
   });
 
-  console.log(response.data.user_id)
-
   if (response.status === 200 && response.data.access !== '') {
-    // Guardar los datos del usuario en sessionStorage
-    sessionStorage.setItem('user_data', JSON.stringify({
-      access: response.data.access,
-      refresh: response.data.refresh,
-      user_id: response.data.user_id,
-      is_superuser: response.data.is_superuser,
-    }));
+    await useUserData.setAccessToken(response.data.access)
+    await useUserData.setRefreshToken(response.data.refresh);
+    await useUserData.setUserId(response.data.user_id);
+    await useUserData.setIsSuperuser(response.data.is_superuser)
+    await useUserData.setUserData(response)
 
-    // Guardar el token de refresh si es necesario
-    useUserData.setAccessToken(response.data.access)
-    useUserData.setRefreshToken(response.data.refresh);
-    useUserData.setUserId(response.data.user_id);
-    useUserData.setIsSuperuser(response.data.is_superuser)
-
-    router.push('/inicio');
+    await router.push('/inicio');
   }
 
 }

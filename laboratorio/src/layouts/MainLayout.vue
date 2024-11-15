@@ -26,9 +26,11 @@ import { userData } from 'stores/userData';
 import { useRouter } from 'vue-router';
 import { backend } from 'boot/axios';
 
+
 defineOptions({
   name: 'MainLayout'
 });
+
 
 const useUSerData = userData();
 const router = useRouter();
