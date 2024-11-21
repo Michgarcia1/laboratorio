@@ -133,7 +133,6 @@ const confirm = async () => {
       showDialog.value = true;
     }
   } catch (error) {
-    console.log(error)
     Loading.hide();
     Notify.create({
       message: error.response.data.token,

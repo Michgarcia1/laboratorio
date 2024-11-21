@@ -122,7 +122,6 @@ const handleDateChange = async () => {
 };
 
 
-// Función para confirmar la cita
 const confirmAppointment = async () => {
 
 

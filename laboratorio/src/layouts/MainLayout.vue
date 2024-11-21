@@ -8,8 +8,24 @@
              @click="irAInicio">
           Laboratorio VYMAR
         </div>
-        <div class="flex justify-end q-gutter-md" style="flex-grow: 1;">
-          <a v-if="useUSerData.access_token !== ''" @click="cerrarSesion" style="background: none; border: none; cursor: pointer; color: #096393; font-size: 15px; font-weight: bold">Cerrar sesión</a>
+        <div
+          v-if="useUserData.access_token !== ''"
+          class="flex justify-end q-gutter-md"
+          style="flex-grow: 1">
+          <q-btn icon="menu" flat>
+            <q-menu class="q-ml-xl" transition-show="scale" transition-hide="scale">
+              <q-list>
+                <q-item class="flex column ">
+                  <q-item-section>
+                    <q-icon name="shopping_card" flat/>
+                  </q-item-section>
+                  <q-item-section>
+                   <q-btn icon="logout" flat @click="cerrarSesion" />
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
         </div>
       </q-toolbar>
     </q-header>
@@ -32,19 +48,19 @@ defineOptions({
 });
 
 
-const useUSerData = userData();
+const useUserData = userData();
 const router = useRouter();
 const $q = useQuasar();
 
 const irAInicio = () => {
-  if (useUSerData.access_token !== '') {
+  if (useUserData.access_token !== '') {
     router.push('/inicio');
   }
 };
 
 const cerrarSesion = async () => {
   try {
-    const { access_token, refresh_token } = useUSerData;
+    const { access_token, refresh_token } = useUserData;
 
     await backend.post('/logout/', { refresh: refresh_token }, {
       headers: {
@@ -53,8 +69,7 @@ const cerrarSesion = async () => {
       }
     });
 
-    useUSerData.access_token = '';
-    useUSerData.refresh_token = '';
+    useUserData.reset()
 
     $q.notify({
       type: 'positive',
@@ -66,13 +81,11 @@ const cerrarSesion = async () => {
     await router.push('/');
 
   } catch (error) {
-    console.error('Error al cerrar sesión:', error);
-    $q.notify({
-      type: 'negative',
-      message: 'No se pudo cerrar la sesión',
-      icon: 'error',
-      position: 'top'
-    });
+    const err = error as { response: { data: { detail: string } } };
+    if (err.response.data.detail === 'Access token is invalid. Please refresh your token.'){
+      useUserData.reset()
+      router.push('/');
+    }
   }
 };
 </script>

@@ -92,19 +92,28 @@ const login = async () => {
     });
   }
 
-  const response: ResponseLogin = await backend.post('/login/', {
-    email: email.value,
-    password: password.value,
-  });
+  try{
+    const response: ResponseLogin = await backend.post('/login/', {
+      email: email.value,
+      password: password.value,
+    });
 
-  if (response.status === 200 && response.data.access !== '') {
-    await useUserData.setAccessToken(response.data.access)
-    await useUserData.setRefreshToken(response.data.refresh);
-    await useUserData.setUserId(response.data.user_id);
-    await useUserData.setIsSuperuser(response.data.is_superuser)
-    await useUserData.setUserData(response)
-
-    await router.push('/inicio');
+    if (response.status === 200 && response.data.access !== '') {
+      await useUserData.setAccessToken(response.data.access)
+      await useUserData.setRefreshToken(response.data.refresh);
+      await useUserData.setUserId(response.data.user_id);
+      await useUserData.setIsSuperuser(response.data.is_superuser)
+      await useUserData.setUserData(response)
+      await router.push('/inicio');
+    }
+  }catch(error){
+    const err = error as { response: { data: { error: string } } };
+    Notify.create({
+      message: err.response.data.error,
+      type: 'warning',
+      icon: 'warning',
+      timeout: 3000,
+    });
   }
 
 }

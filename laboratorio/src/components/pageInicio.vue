@@ -1,7 +1,10 @@
 <template>
   <div>
+
+    <!-- Card para el usuario normal -->
     <q-card
       flat
+      v-if="!isSuperuser"
       class="q-pa-md q-gutter-md"
       :style="$q.screen.lt.sm ? {fontWeight: 'bold', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '20px', maxWidth: '100%', background: 'none'} :
       {fontWeight: 'bold', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '20px', width:'1200px', background: 'none'}">
@@ -39,19 +42,6 @@
           </div>
         </q-card-section>
 
-        <q-card-section v-if="isSuperuser">
-          <q-btn
-            class="icono"
-            flat
-            icon="manage_accounts"
-            size="100px"
-            @click="() => router.push('/administrador')"
-            :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
-          <div>
-            <p class="q-mt-sm text-center">Administrador</p>
-          </div>
-        </q-card-section>
-
         <q-card-section v-if="!isSuperuser">
           <q-btn
             class="icono"
@@ -68,8 +58,55 @@
       </div>
     </q-card>
 
+
+    <!-- Card para el super usuario -->
+    <q-card
+      flat
+      v-else
+      class="q-pa-md q-gutter-md"
+      :style="$q.screen.lt.sm ? {fontWeight: 'bold', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '20px', maxWidth: '100%', background: 'none'} :
+      {fontWeight: 'bold', display: 'flex', flexDirection: 'column', justifyContent: 'center', fontSize: '20px', width:'1200px', background: 'none'}">
+
+      <div class="flex justify-center">
+        <p>Laboratorio de Análisis Clínico</p>
+      </div>
+
+      <!-- Trámites -->
+      <div class="q-gutter-md"
+           :style="$q.screen.lt.sm ? {  } : { display: 'flex', flexDirection: 'row', justifyContent: 'center' }">
+
+        <q-card-section v-if="isSuperuser">
+          <q-btn
+            class="icono"
+            flat
+            icon="checklist"
+            size="100px"
+            @click="() => router.push('/administrador')"
+            :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
+          <div>
+            <p class="q-mt-sm text-center">¿Que hay por hacer?</p>
+          </div>
+        </q-card-section>
+
+        <q-card-section v-if="isSuperuser">
+          <q-btn
+            class="icono"
+            flat
+            icon="manage_accounts"
+            size="100px"
+            @click="() => router.push('/administrador')"
+            :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
+          <div>
+            <p class="q-mt-sm text-center">Administrador</p>
+          </div>
+        </q-card-section>
+
+      </div>
+    </q-card>
+
+
       <!-- Misión y Visión -->
-      <div class="q-pb-md q-pa-md q-gutter-md row"
+    <div class="q-pb-md q-pa-md q-gutter-md row"
            :style="$q.screen.lt.sm ? {} : { display: 'flex', flexDirection: 'row', justifyContent: 'center' }">
 
           <div style="width: 100%; max-width: 500px;">
@@ -151,11 +188,13 @@
 import {onMounted, ref} from 'vue';
 import { useQuasar } from 'quasar';
 import {useRouter} from 'vue-router';
+import { userData } from 'stores/userData';
 
 const $q = useQuasar();
 const router = useRouter();
+const useUserData = userData()
+const isSuperuser = ref(false)
 
-const isSuperuser = ref(false);
 
 
 const slide = ref('style');
@@ -168,8 +207,7 @@ const mision = 'Proporcionar servicios de diagnóstico clínico de alta calidad 
 const vision = 'Ser reconocidos por nuestros servicios de diagnóstico clínico, destacando por nuestra capacidad de ofrecer pruebas precisas y oportunas. Buscamos promover la salud y el bienestar de nuestros pacientes a través de la innovación constante, la excelencia en la atención y la integridad en cada uno de nuestros procesos, garantizando así confianza y calidad en la atención sanitaria.';
 
 onMounted(() => {
-  const userData = JSON.parse(sessionStorage.getItem('user_data'));
-  if (userData && userData.is_superuser) {
+  if (useUserData.is_superuser) {
     isSuperuser.value = true;
   }
 });

@@ -79,3 +79,14 @@ export interface ResultadosCitas{
     }
   ]
 }
+
+export interface ComponenteError {
+  numero_error: string;
+  mensaje: string;
+  url_redirect: string;
+  botones?: {
+    mensaje: string;
+    url_redirect: string;
+    onClick?: () => void;
+  }[];
+}

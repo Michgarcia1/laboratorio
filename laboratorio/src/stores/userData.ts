@@ -56,5 +56,12 @@ export const userData = defineStore('userData', {
       this.is_superuser = userDataToStore.is_superuser;
       this.id_user = userDataToStore.id_user;
     },
+    reset() {
+      this.access_token = '';
+      this.refresh_token = '';
+      this.is_superuser = false;
+      this.id_user = '';
+      sessionStorage.clear()
+    }
   },
 })
