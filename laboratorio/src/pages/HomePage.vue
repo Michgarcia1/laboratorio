@@ -2,7 +2,7 @@
   <q-page class="q-mt-md" style="width: 80%">
     <main class="flex q-gutter-lg column">
       <div>
-        <div class="q-mr-xl q-ml-xl" v-if="useConfiguracionSitio.imagenes_carrusel.length > 0">
+        <div :class="$q.screen.lt.sm  ? 'full-width' : 'q-mr-xl q-ml-xl'" v-if="useConfiguracionSitio.imagenes_carrusel.length > 0">
           <q-carousel
             v-model="slide"
             :autoplay="3000"
