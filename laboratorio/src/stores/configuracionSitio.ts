@@ -12,6 +12,7 @@ export const configuracionSitio = defineStore('siteConfig', {
       correo_electronico: '',
       numero_telefonico: '',
       activo: false,
+      derechos_reservados: '',
       servicios_clinicos_descripcion: [{
         nombre_servicio: '',
         descripcion: '',
@@ -33,6 +34,7 @@ export const configuracionSitio = defineStore('siteConfig', {
       descripcion_sitio: parsedSiteConfig.descripcion_sitio || '',
       imagenes_carrusel: parsedSiteConfig.imagenes_carrusel || [{ imagen: '' }],
       logo: parsedSiteConfig.logo || '',
+      derechos_reservados: parsedSiteConfig.derechos_reservados || '',
       correo_electronico: parsedSiteConfig.correo_electronico || '',
       numero_telefonico: parsedSiteConfig.numero_telefonico || '',
       activo: parsedSiteConfig.activo || false,
@@ -54,6 +56,7 @@ export const configuracionSitio = defineStore('siteConfig', {
         imagenes_carrusel: response.data.results[0].imagenes_carrusel,
         numero_telefonico: response.data.results[0].numero_telefonico,
         correo_electronico: response.data.results[0].correo_electronico,
+        derechos_reservados: response.data.results[0].derechos_reservados,
         logo: response.data.results[0].logo,
         activo: response.data.results[0].activo,
         servicios_clinicos_descripcion: response.data.results[0].servicios_clinicos_descripcion
@@ -69,6 +72,7 @@ export const configuracionSitio = defineStore('siteConfig', {
       this.numero_telefonico = siteConfigToStore.numero_telefonico;
       this.correo_electronico = siteConfigToStore.correo_electronico;
       this.activo = siteConfigToStore.activo;
+      this.derechos_reservados = siteConfigToStore.derechos_reservados;
       this.servicios_clinicos_descripcion = siteConfigToStore.servicios_clinicos_descripcion;
     },
 
@@ -80,6 +84,7 @@ export const configuracionSitio = defineStore('siteConfig', {
       this.activo = false;
       this.numero_telefonico = '';
       this.correo_electronico = '';
+      this.derechos_reservados = '';
       this.servicios_clinicos_descripcion = [{
         nombre_servicio: '',
         descripcion: '',

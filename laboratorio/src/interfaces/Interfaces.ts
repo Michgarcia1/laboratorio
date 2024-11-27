@@ -104,6 +104,7 @@ export interface ResponseConfiguracionSitio {
         activo: boolean,
         numero_telefonico: string;
         correo_electronico: string;
+        derechos_reservados: string;
         logo: string,
         servicios_clinicos_descripcion: {
           nombre_servicio: string;

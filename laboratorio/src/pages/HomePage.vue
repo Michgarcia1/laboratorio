@@ -2,7 +2,7 @@
   <q-page class="q-mt-md" style="width: 80%">
     <main class="flex q-gutter-lg column">
       <div>
-        <div :class="$q.screen.lt.sm  ? 'full-width' : 'q-mr-xl q-ml-xl'" v-if="useConfiguracionSitio.imagenes_carrusel.length > 0">
+        <div :class="$q.screen.lt.sm  ? 'bg-red' : 'q-mr-xl q-ml-xl'" v-if="useConfiguracionSitio.imagenes_carrusel.length > 0">
           <q-carousel
             v-model="slide"
             :autoplay="3000"
@@ -15,10 +15,10 @@
             navigation
             arrows
             padding
-            :height="$q.screen.lt.sm ? '150px' : '250px'"
-          transition-prev="scale"
-          transition-next="scale"
-          class="text-black rounded-borders"
+            height="350px"
+            transition-prev="scale"
+            transition-next="scale"
+            class="text-black rounded-borders "
           >
           <q-carousel-slide name="style" class="column no-wrap flex-center">
             <q-img src="public/icons/fondo-principal.webp" />
@@ -27,7 +27,7 @@
             v-for="(imagen, index) in useConfiguracionSitio.imagenes_carrusel"
             :key="index"
             :name="`slide-${index}`"
-            class="column no-wrap flex-center"
+            class="column no-wrap flex-center no-scroll object-cover"
           >
             <div>
               <img
@@ -96,7 +96,8 @@ watch(() => useConfiguracionSitio.imagenes_carrusel, () => {
 .carousel-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* Ajusta la proporción de las imágenes dentro del carrusel */
+  object-fit: cover;
   background-color: #fff;
+  overflow: hidden;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="q-mb-xl">
 
     <!-- Card para el usuario normal -->
     <q-card
@@ -144,7 +144,7 @@
       </div>
 
     <!-- Carousel -->
-    <div class="q-pa-md">
+    <!--<div class="q-pa-md">
       <q-carousel
         v-model="slide"
         autoplay="if='true' > 0"
@@ -180,7 +180,7 @@
           <div class="q-mt-md text-center" style="font-size: 16px">{{ text4 }}</div>
         </q-carousel-slide>
       </q-carousel>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -197,11 +197,11 @@ const isSuperuser = ref(false)
 
 
 
-const slide = ref('style');
-const text = 'Ofrecemos un amplio rango de pruebas clínicas diseñadas para detectar, prevenir y monitorear condiciones de salud';
-const text2 = 'Contamos con tecnología de vanguardia para garantizar resultados confiables';
-const text3 = 'Nuestro equipo de profesionales está altamente capacitado para atenderte y resolver tus dudas';
-const text4 = 'Ofrecemos análisis urgentes con resultados rápidos en situaciones de emergencia';
+// const slide = ref('style');
+// const text = 'Ofrecemos un amplio rango de pruebas clínicas diseñadas para detectar, prevenir y monitorear condiciones de salud';
+// const text2 = 'Contamos con tecnología de vanguardia para garantizar resultados confiables';
+// const text3 = 'Nuestro equipo de profesionales está altamente capacitado para atenderte y resolver tus dudas';
+// const text4 = 'Ofrecemos análisis urgentes con resultados rápidos en situaciones de emergencia';
 
 const mision = 'Proporcionar servicios de diagnóstico clínico de alta calidad mediante pruebas precisas y oportunas, promoviendo salud y el bienestar de nuestros pacientes a través de la innovación, la experiencia en la atención y la integridad en todos nuestros procesos.';
 const vision = 'Ser reconocidos por nuestros servicios de diagnóstico clínico, destacando por nuestra capacidad de ofrecer pruebas precisas y oportunas. Buscamos promover la salud y el bienestar de nuestros pacientes a través de la innovación constante, la excelencia en la atención y la integridad en cada uno de nuestros procesos, garantizando así confianza y calidad en la atención sanitaria.';
