@@ -6,6 +6,7 @@ const routes: RouteRecordRaw[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
+      { path: '/iniciar-sesion', component: () => import('pages/iniciarSesion.vue') },
       { path: '/olvide-contrasena', component: () => import('pages/olvideContra.vue') },
       { path: '/restablecer-contrasena/:token/:uuid_user', component: () => import('pages/recuperarContra.vue') },
       { path: '/registro', component: () => import('pages/registroUsuario.vue')},

@@ -90,3 +90,28 @@ export interface ComponenteError {
     onClick?: () => void;
   }[];
 }
+
+
+export interface ResponseConfiguracionSitio {
+  status: number;
+  data: {
+    total_pages: number;
+    results: [
+      {
+        nombre_sitio: string,
+        descripcion_sitio: string,
+        imagenes_carrusel: { imagen: string }[];
+        activo: boolean,
+        numero_telefonico: string;
+        correo_electronico: string;
+        logo: string,
+        servicios_clinicos_descripcion: {
+          nombre_servicio: string;
+          descripcion: string;
+          icono: string;
+          activo: boolean
+        }[];
+      }
+    ]
+  }
+}
