@@ -17,32 +17,22 @@
         <div
           v-if="useUserData.access_token !== ''"
           class="flex justify-end q-gutter-md"
-          style="flex-grow: 1"
+          style="flex-grow: 1;"
         >
-          <q-btn icon="menu" flat>
-            <q-menu
-              class="q-ml-xl"
-              transition-show="scale"
-              transition-hide="scale"
-            >
-              <q-list>
-                <q-item class="flex column">
-                  <q-item-section>
-                    <q-icon name="shopping_card" flat />
-                  </q-item-section>
-                  <q-item-section>
-                    <q-btn icon="logout" flat @click="cerrarSesion" />
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
+          <q-avatar size="48px">
+            <q-icon
+              name="logout"
+              class="cursor-pointer"
+              @click="cerrarSesion"/>
+            <q-tooltip class="">Cerrar sesion</q-tooltip>
+          </q-avatar>
         </div>
         <div
           v-if="
             useUserData.access_token === '' &&
             useConfiguracionSitio.activo &&
-            rt.path !== '/iniciar-sesion'
+            !rutas_path.includes(rt.path) &&
+            rt.matched[1].path !== '/restablecer-contrasena/:token/:uuid_user'
           "
           class="flex row justify-end q-gutter-md"
           style="flex-grow: 1"
@@ -81,8 +71,14 @@ const router = useRouter();
 const $q = useQuasar();
 const useConfiguracionSitio = configuracionSitio()
 const rt = useRoute()
+const rutas_path = [
+  '/iniciar-sesion',
+  '/registro',
+  '/olvide-contrasena'
+]
 
 onMounted(async () => {
+  console.log(rt)
   const response = await backend.get('configuracion-sitio/');
   if (response.status === 200) {
     if(response.data.results.length > 0){
@@ -94,9 +90,7 @@ onMounted(async () => {
 });
 
 const irAInicio = () => {
-  if (useUserData.access_token !== '') {
-    router.push('/inicio');
-  }
+    router.push('/');
 };
 
 const cerrarSesion = async () => {

@@ -48,7 +48,7 @@ onMounted(async() => {
       loading.value = true
     }
   }catch(error){
-    console.log('vamonos')
+
   }
 })
 

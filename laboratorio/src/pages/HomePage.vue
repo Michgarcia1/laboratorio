@@ -1,11 +1,12 @@
 <template>
-  <q-page class="q-mt-md" style="width: 80%">
-    <main class="flex q-gutter-lg column">
+  <q-page class="q-mt-md" :style="$q.screen.lt.sm ? {width: '100%'} : {width: '80%'}">
+    <main :class="$q.screen.lt.sm ? 'full-width': 'flex q-gutter-lg column'">
       <div>
-        <div :class="$q.screen.lt.sm  ? 'bg-red' : 'q-mr-xl q-ml-xl'" v-if="useConfiguracionSitio.imagenes_carrusel.length > 0">
+        <div :class="$q.screen.lt.sm  ? 'full-width' : 'q-mr-xl q-ml-xl'" v-if="useConfiguracionSitio.imagenes_carrusel.length > 0">
           <q-carousel
             v-model="slide"
             :autoplay="3000"
+
             infinite
             swipeable
             animated
@@ -15,10 +16,10 @@
             navigation
             arrows
             padding
-            height="350px"
+            :height="$q.screen.lt.sm ? '100px' : '300px' "
             transition-prev="scale"
             transition-next="scale"
-            class="text-black rounded-borders "
+            class="text-black rounded-borders q-pa-sm"
           >
           <q-carousel-slide name="style" class="column no-wrap flex-center">
             <q-img src="public/icons/fondo-principal.webp" />
@@ -27,22 +28,22 @@
             v-for="(imagen, index) in useConfiguracionSitio.imagenes_carrusel"
             :key="index"
             :name="`slide-${index}`"
-            class="column no-wrap flex-center no-scroll object-cover"
-          >
-            <div>
+            class="column no-wrap justify-center flex no-scroll"
+            :img-src="imagen.imagen"
+         />
+            <!--<div>
               <img
                 :src="imagen.imagen"
                 alt="Imagen carrusel"
                 class="carousel-image"
               />
-            </div>
-          </q-carousel-slide>
+            </div> -->
           </q-carousel>
         </div>
       </div>
 
       <div class="flex column">
-        <div class="flex justify-center q-mb-md">
+        <div :class="$q.screen.lt.sm ? 'flex column q-mt-md' : 'flex column q-mt-sm items-center' ">
           <p style="font-size: 20px">SERVICIOS DISPONIBLES</p>
         </div>
 

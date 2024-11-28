@@ -67,6 +67,7 @@ import { procesoCompra } from 'stores/procesoCompra';
 import {backend} from 'boot/axios';
 import {userData} from 'stores/userData';
 import { HoraCita } from 'src/interfaces/Interfaces';
+import { Loading } from 'quasar';
 
 
 const date = ref('');
@@ -98,7 +99,7 @@ const handleDateChange = async () => {
     console.log('dentro del if')
     try {
       console.log(access_token, 'token')
-      const response = await backend.get(`verificar-citas/?fecha=${date.value}`, {
+      const response = await backend.get(`verificar-citas/?fecha=${date.value}&nombre_Cita=${useProcesoCompra.nombre_servicio}`, {
         headers:{
           'Authorization':`Bearer ${access_token}`,
         },
@@ -123,9 +124,9 @@ const handleDateChange = async () => {
 
 
 const confirmAppointment = async () => {
-
-
+  Loading.show()
   if (!date.value && !time.value) {
+    Loading.hide()
     Notify.create({
     message: 'Debes de seleccionar fecha y hora.',
     type: 'warning',
@@ -133,6 +134,7 @@ const confirmAppointment = async () => {
     timeout: 3000,
   });
   } else if (!time.value) {
+    Loading.hide()
     Notify.create({
     message: 'Debes de seleccionar la hora.',
     type: 'warning',
@@ -140,6 +142,7 @@ const confirmAppointment = async () => {
     timeout: 3000,
   });
   } else if (!date.value) {
+    Loading.hide()
     Notify.create({
       message: 'Debes de seleccionar el día.',
       type: 'warning',
@@ -174,6 +177,7 @@ const confirmAppointment = async () => {
     date.value = ''
     time.value.label = ''
     time.value.value = ''
+    Loading.hide()
   }
 };
 

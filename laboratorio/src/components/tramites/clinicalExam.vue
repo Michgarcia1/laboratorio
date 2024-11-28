@@ -81,7 +81,7 @@ const total_page = ref(0)
 
 
 onMounted(async() => {
-  peticionServicios()
+  await peticionServicios()
 })
 
 const peticionServicios = async () => {
@@ -93,6 +93,7 @@ const peticionServicios = async () => {
       useServiciosDisponibles.setServiciosDisponibles([service])
     })
     if(response.data.results.length === 1 && !response.data.results[0].activo){
+      console.log('hola')
       contenido.value = false
       servicios.value = useServiciosDisponibles.servicios
     }else{

@@ -24,11 +24,14 @@
                v-else
                class="q-mt-sm"
                label="Subir resultado"
+               @click="() => showDialog = !showDialog"
                style="width: 40%; background: #096393; color: white;"
         />
       </div>
 
     </q-card>
+
+    <subirResultados :showLoading="showDialog"/>
 
   </div>
 </template>
@@ -37,6 +40,7 @@
 import {  ResultadosCitas } from 'src/interfaces/Interfaces';
 import { userData } from 'stores/userData';
 import { watch, ref } from 'vue';
+import subirResultados from 'src/components/tramites/subirResultados.vue'
 
 
 const props = defineProps<{
@@ -44,6 +48,7 @@ const props = defineProps<{
 }>();
 const useUserData = userData();
 const citas = ref<ResultadosCitas[]>([])
+const showDialog = ref(false)
 
 
 watch(() => props.data, (newValue) => {
