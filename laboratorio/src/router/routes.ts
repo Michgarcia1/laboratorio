@@ -13,7 +13,7 @@ const routes: RouteRecordRaw[] = [
       { path: '/inicio', component: () => import('pages/paginaInicio.vue')},
       { path: '/examenes-clinicos', component: () => import('pages/tramites/clinicaExam.vue')},
       { path: '/proceso-de-compra', component: () => import('pages/procesoCompra.vue')},
-      { path: '/resultados', component: () => import('pages/tramites/resultadosExam.vue')},
+      { path: '/resultados/', component: () => import('pages/tramites/resultadosExam.vue')},
       { path: '/administrador', component: () => import('pages/tramites/administradorLab.vue')},
       { path: '/ubicacion', component: () => import('pages/tramites/ubicacionLab.vue') }
     ],

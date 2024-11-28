@@ -30,9 +30,11 @@ import { onMounted, ref } from 'vue';
 import { backend } from 'boot/axios';
 import adminLab from 'components/tramites/adminLab.vue';
 import { userData } from 'stores/userData';
+import { useRouter } from 'vue-router';
 
 const {access_token} = userData()
 const loading = ref(false);
+const router = useRouter();
 
 onMounted(async() => {
   try{
@@ -48,7 +50,7 @@ onMounted(async() => {
       loading.value = true
     }
   }catch(error){
-
+    await router.push('/error')
   }
 })
 

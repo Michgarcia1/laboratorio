@@ -36,9 +36,15 @@ export const userData = defineStore('userData', {
     },
     setAccessToken(access_token: string) {
       this.access_token = access_token;
+      const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+      userData.access_token = access_token;
+      sessionStorage.setItem('userData', JSON.stringify(userData));
     },
     setRefreshToken(refresh_token: string) {
       this.refresh_token = refresh_token;
+      const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+      userData.refresh_token = refresh_token;
+      sessionStorage.setItem('userData', JSON.stringify(userData));
     },
     setIsSuperuser(isSuperuser: boolean) {
       this.is_superuser = isSuperuser;

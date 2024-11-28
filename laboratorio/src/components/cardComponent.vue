@@ -24,14 +24,18 @@
                v-else
                class="q-mt-sm"
                label="Subir resultado"
-               @click="() => showDialog = !showDialog"
+               @click="() => subirResultado(cita.id, cita.numero_cita, cita.nombre_Cita, cita.user)"
                style="width: 40%; background: #096393; color: white;"
         />
       </div>
 
     </q-card>
 
-    <subirResultados :showLoading="showDialog"/>
+    <subirResultados
+      :cita_escogida="numero_cita"
+      :userID="userID"
+      :folioCita="folioCita"
+      :showLoading="useComunicacionComponentes.dialogSubirResultados"/>
 
   </div>
 </template>
@@ -41,6 +45,7 @@ import {  ResultadosCitas } from 'src/interfaces/Interfaces';
 import { userData } from 'stores/userData';
 import { watch, ref } from 'vue';
 import subirResultados from 'src/components/tramites/subirResultados.vue'
+import { comunicacionComponentes } from 'stores/comunicacionComponentes';
 
 
 const props = defineProps<{
@@ -48,13 +53,25 @@ const props = defineProps<{
 }>();
 const useUserData = userData();
 const citas = ref<ResultadosCitas[]>([])
-const showDialog = ref(false)
+const useComunicacionComponentes = comunicacionComponentes()
+const numero_cita = ref(0)
+const folioCita = ref('')
+const nombreEstudio = ref('')
+const userID = ref(0)
 
 
 watch(() => props.data, (newValue) => {
   citas.value = newValue
 })
 
+
+const subirResultado = async (cita:number, folio_cita:string, nombre_estudio:string, user_id:number) => {
+  numero_cita.value = cita
+  folioCita.value = folio_cita
+  nombreEstudio.value = nombre_estudio
+  userID.value = user_id
+  useComunicacionComponentes.setDialogSubirResultados(true)
+}
 
 
 </script>

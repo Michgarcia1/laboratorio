@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white q-pa-lg"
+  <div class="bg-white q-pa-lg q-mb-lg"
   :style="$q.screen.lt.sm ? {height: '750px', width: '380px'} : { height: '650px', width: '1200px' }">
 
     <div class="text-h6 q-pa-md" style="font-weight: bold">
@@ -34,6 +34,7 @@ onMounted(async () => {
       'Content-Type': 'multipart/form-data'
     }
   })
+  console.log(response)
   useCitasMedicas.setCitasMedicas(response.data.results)
 })
 

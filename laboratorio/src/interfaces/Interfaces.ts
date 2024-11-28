@@ -77,7 +77,8 @@ export interface ResultadosCitas{
       archivo: string;
       fecha_subida: string;
     }
-  ]
+  ];
+  id: number;
 }
 
 export interface ComponenteError {

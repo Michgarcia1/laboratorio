@@ -5,13 +5,12 @@
     <div class="text-h6 q-pa-md" style="font-weight: bold">
       Ubicación del Laboratorio
     </div>
-
-    <div id="map" style="height: calc(100% - 64px);"></div>
+    <componenteUbicacion />
   </div>
 </template>
 
 <script setup lang="ts">
-
+import componenteUbicacion from 'src/components/componenteUbicacion.vue'
 
 
 </script>
