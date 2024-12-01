@@ -81,7 +81,7 @@
             flat
             icon="checklist"
             size="100px"
-            @click="() => router.push('/administrador')"
+            @click="() => router.push('/planeado-dia')"
             :style="$q.screen.lt.sm ? {color: '#096393', marginLeft: '40px' } : { color: '#096393', marginBottom: '10px' }"/>
           <div>
             <p class="q-mt-sm text-center">¿Que hay por hacer?</p>

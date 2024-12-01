@@ -117,3 +117,29 @@ export interface ResponseConfiguracionSitio {
     ]
   }
 }
+
+
+export interface CitaPorDia {
+  status: number;
+  data: {
+    total_pages: number;
+    results: [
+      {
+        id: number;
+        resultados: {
+          id: number;
+          archivo: string;
+          fecha_subida: string;
+          dating: number;
+        }
+        nombre_Cita: string;
+        total_cita: number;
+        pagado: boolean;
+        fecha_cita: string;
+        hora_cita: string;
+        numero_cita: string;
+        user: number;
+      }
+    ]
+  }
+}

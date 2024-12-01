@@ -13,9 +13,11 @@ import { userData } from 'stores/userData';
 import { useRouter } from 'vue-router';
 import pageInicio from 'src/components/pageInicio.vue'
 import { backend } from 'boot/axios';
+import { comunicacionComponentes } from 'stores/comunicacionComponentes';
 
 const { access_token } = userData()
 const router = useRouter()
+const useComunicacionComponentes = comunicacionComponentes()
 
 const isLoading = ref(true);
 
@@ -35,6 +37,10 @@ onMounted(async () => {
     }
   }catch (error) {
     await router.push('/error')
+  }
+
+  finally {
+    useComunicacionComponentes.setShowSpinner(true)
   }
 })
 </script>

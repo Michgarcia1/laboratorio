@@ -15,7 +15,8 @@ const routes: RouteRecordRaw[] = [
       { path: '/proceso-de-compra', component: () => import('pages/procesoCompra.vue')},
       { path: '/resultados/', component: () => import('pages/tramites/resultadosExam.vue')},
       { path: '/administrador', component: () => import('pages/tramites/administradorLab.vue')},
-      { path: '/ubicacion', component: () => import('pages/tramites/ubicacionLab.vue') }
+      { path: '/ubicacion', component: () => import('pages/tramites/ubicacionLab.vue') },
+      { path: '/planeado-dia', component: () => import('pages/tramites/paginaHacer.vue') }
     ],
   },
   // Always leave this as last one,

@@ -151,33 +151,49 @@ const confirmAppointment = async () => {
     })
   } else {
 
-    const formData = {
-      nombre_Cita: nombre_servicio,
-      total_cita: precio,
-      fecha_cita: date.value,
-      hora_cita: time.value.value,
-      user: id_user,
+    try{
+      const formData = {
+        nombre_Cita: nombre_servicio,
+        total_cita: precio,
+        fecha_cita: date.value,
+        hora_cita: time.value.value,
+        user: id_user,
+      }
+      console.log(formData, 'data')
+      const response = await backend.post('registro-citas/', formData , {
+        headers:{
+          'Authorization': `Bearer ${access_token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      console.log(response)
+      const dia = new Date(date.value)
+      console.log(dia)
+      Notify.create({
+        message: `Cita confirmada para el ${date.value} a las ${time.value.value}`,
+        type: 'positive',
+        icon: 'check_circle',
+        timeout: 3000,
+      })
+      date.value = ''
+      time.value.label = ''
+      time.value.value = ''
+      Loading.hide()
+    }catch (error) {
+      const err = error as { response: { data: { error: string } } };
+      if (err.response.data.error === 'Ya tienes una cita programada en ese horario.'){
+        Notify.create({
+          type: 'warning',
+          icon: 'warning',
+          timeout: 3000,
+          message: err.response.data.error.split('.')[0] + ', intenta con un horario diferente!',
+        })
+        date.value = ''
+        time.value.label = ''
+        time.value.value = ''
+        Loading.hide()
+      }
     }
-    console.log(formData, 'data')
-    const response = await backend.post('registro-citas/', formData , {
-      headers:{
-        'Authorization': `Bearer ${access_token}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    })
-    console.log(response)
-    const dia = new Date(date.value)
-    console.log(dia)
-    Notify.create({
-      message: `Cita confirmada para el ${date.value} a las ${time.value.value}`,
-      type: 'positive',
-      icon: 'check_circle',
-      timeout: 3000,
-    })
-    date.value = ''
-    time.value.label = ''
-    time.value.value = ''
-    Loading.hide()
   }
 };
 
