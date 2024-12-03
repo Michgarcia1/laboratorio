@@ -1,5 +1,5 @@
 <template>
-  <div class="q-mb-xl">
+  <div>
     <div class="flex column q-gutter-lg">
       <q-card>
         <q-card-section style="height: 400px;">
@@ -8,28 +8,26 @@
       </q-card>
       <q-card>
         <q-card-section flat>
-          <q-card class="q-pa-md" flat>
-            <q-card-section>
+          <q-card class="q-pa-md full-width" flat>
+            <q-card-section flat>
               <div class="text-h6">Información de Contacto</div>
             </q-card-section>
             <q-card-section>
               <div class="q-mb-md">
-                <div class="flex items-center q-mb-sm">
-                  <q-icon name="place" size="md" class="q-mr-sm text-grey-7" />
-                  <p>123 Calle Principal, Ciudad, País, CP 12345</p>
+                <div class="flex items-center q-mb-sm ">
+                  <q-icon name="place" size="md" class="q-mr-sm text-grey-7 q-pb-md" />
+                  <p>{{useConfiguracionSitio.direccion !== '' ? useConfiguracionSitio.direccion : 'Direeccion por defecto'}}</p>
                 </div>
                 <div class="flex items-center q-mb-sm">
-                  <q-icon name="phone" size="md" class="q-mr-sm text-grey-7" />
-                  <p>+1 (234) 567-8900</p>
+                  <q-icon name="phone" size="md" class="q-mr-sm q-pb-md text-grey-7" />
+                  <p>{{ useConfiguracionSitio.numero_telefonico !== '' ? useConfiguracionSitio.numero_telefonico : '+1 (234) 567-8900' }}</p>
                 </div>
                 <div class="flex">
-                  <q-icon name="schedule" size="md" class="q-mr-sm text-grey-7 q-mt-xs" />
+                  <q-icon name="schedule" size="md" class="q-mr-sm text-grey-7 q-mt-xs q-pb-xl" />
                   <div>
                     <p class="text-weight-medium">Horario de Atención:</p>
                     <ul class="q-pl-md">
-                      <li>Lunes - Viernes: 9:00 AM - 6:00 PM</li>
-                      <li>Sábado: 10:00 AM - 4:00 PM</li>
-                      <li>Domingo: Cerrado</li>
+                      <li>Lunes - Viernes: {{useConfiguracionSitio.horario_inicio}}:00 AM - {{useConfiguracionSitio.horario_final}}:00 PM</li>
                     </ul>
                   </div>
                 </div>
@@ -41,7 +39,6 @@
     </div>
   </div>
 </template>
-
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
@@ -74,7 +71,7 @@ onMounted(() => {
     })
   );
 
-    const vectorSource = new VectorSource({
+  const vectorSource = new VectorSource({
     features: [pointFeature],
   });
 
@@ -82,12 +79,8 @@ onMounted(() => {
     source: vectorSource,
   });
 
-  const divMapa = document.getElementById('map') || 'map'
-
-  console.log(divMapa, 'mapa')
-
   new Map({
-    target: divMapa,
+    target: 'map',
     layers: [
       new TileLayer({
         source: new OSM(),
@@ -99,7 +92,5 @@ onMounted(() => {
       zoom: 15,
     }),
   });
-  console.log(document.getElementById('map'), 'mapa')
 });
 </script>
-

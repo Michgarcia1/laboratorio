@@ -107,6 +107,9 @@ export interface ResponseConfiguracionSitio {
         correo_electronico: string;
         derechos_reservados: string;
         logo: string,
+        direccion:string;
+        horario_inicio: string;
+        horario_final: string;
         servicios_clinicos_descripcion: {
           nombre_servicio: string;
           descripcion: string;
