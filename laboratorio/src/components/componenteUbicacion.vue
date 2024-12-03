@@ -1,6 +1,47 @@
 <template>
-  <div id="map" style="height: 70%; width: 100%;"></div>
+  <div class="q-mb-xl">
+    <div class="flex column q-gutter-lg">
+      <q-card>
+        <q-card-section style="height: 400px;">
+          <div id="map" style="height: 100%; width: 100%;"></div>
+        </q-card-section>
+      </q-card>
+      <q-card>
+        <q-card-section flat>
+          <q-card class="q-pa-md" flat>
+            <q-card-section>
+              <div class="text-h6">Información de Contacto</div>
+            </q-card-section>
+            <q-card-section>
+              <div class="q-mb-md">
+                <div class="flex items-center q-mb-sm">
+                  <q-icon name="place" size="md" class="q-mr-sm text-grey-7" />
+                  <p>123 Calle Principal, Ciudad, País, CP 12345</p>
+                </div>
+                <div class="flex items-center q-mb-sm">
+                  <q-icon name="phone" size="md" class="q-mr-sm text-grey-7" />
+                  <p>+1 (234) 567-8900</p>
+                </div>
+                <div class="flex">
+                  <q-icon name="schedule" size="md" class="q-mr-sm text-grey-7 q-mt-xs" />
+                  <div>
+                    <p class="text-weight-medium">Horario de Atención:</p>
+                    <ul class="q-pl-md">
+                      <li>Lunes - Viernes: 9:00 AM - 6:00 PM</li>
+                      <li>Sábado: 10:00 AM - 4:00 PM</li>
+                      <li>Domingo: Cerrado</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </q-card-section>
+          </q-card>
+        </q-card-section>
+      </q-card>
+    </div>
+  </div>
 </template>
+
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
@@ -41,8 +82,12 @@ onMounted(() => {
     source: vectorSource,
   });
 
+  const divMapa = document.getElementById('map') || 'map'
+
+  console.log(divMapa, 'mapa')
+
   new Map({
-    target: 'map',
+    target: divMapa,
     layers: [
       new TileLayer({
         source: new OSM(),
@@ -54,5 +99,7 @@ onMounted(() => {
       zoom: 15,
     }),
   });
+  console.log(document.getElementById('map'), 'mapa')
 });
 </script>
+

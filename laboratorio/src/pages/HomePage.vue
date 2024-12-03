@@ -56,6 +56,7 @@
             <q-card-section class="full-width flex items-center column q-gutter-sm">
               <q-avatar>
                 <q-icon
+                  style="color:#096393"
                   size="55px"
                   :name="servicio.icono"
                 />

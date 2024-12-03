@@ -7,7 +7,6 @@
         </div>
         <div class="q-mx-auto q-mb-lg" style="width: 256px; height: 256px;">
           <svg viewBox="0 0 100 100" class="w-full h-full">
-            <!-- Base del microscopio -->
             <rect x="35" y="80" width="30" height="10" fill="#4A5568" />
             <path d="M40 80 L35 60 L65 60 L60 80" fill="#4A5568" />
 
@@ -15,7 +14,7 @@
 
             <circle cx="50" cy="25" r="10" fill="#2D3748" />
 
-            <g :transform="`rotate(${rotate} 50 25)`">
+            <g :transform="`rotate(${rotate} 50 25) `">
               <circle cx="50" cy="15" r="5" fill="#4299E1" />
               <circle cx="60" cy="25" r="5" fill="#4299E1" />
               <circle cx="50" cy="35" r="5" fill="#4299E1" />
@@ -40,7 +39,9 @@
           <p class="text-blue-700">
             Por favor, contacte a nuestro equipo de soporte al:
             <br />
-            <a :href="useConfiguracionSitio.numero_telefonico" class="font-bold text-blue-900 hover:underline">{{useConfiguracionSitio.numero_telefonico}}</a>
+            <a :href="useConfiguracionSitio.numero_telefonico" class="font-bold text-blue-900 hover:underline">{{
+                useConfiguracionSitio.numero_telefonico !== '' ? useConfiguracionSitio.numero_telefonico : '+52'
+              }}</a>
           </p>
         </div>
         <p class="text-grey-6 text-caption">
