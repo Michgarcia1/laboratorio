@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white q-pa-lg"
-  :style="$q.screen.lt.sm ? {} : { height: '550px', width: '1200px' }">
+  <div class="bg-white q-pa-lg q-mb-xl q-mt-md"
+  :style="$q.screen.lt.sm ? {} : {  width: '1200px' }">
 
     <div class="text-h6 q-pa-md" style="font-weight: bold">
       Ubicación del Laboratorio

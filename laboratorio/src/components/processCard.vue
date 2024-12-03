@@ -57,6 +57,37 @@
 
     </q-card>
 
+    <q-dialog
+      persistent
+      v-model="showAlerta" >
+      <q-card flat class="my-card" style="max-width: 425px">
+        <q-card-section>
+          <div class="text-h6">Estado de Citas</div>
+          <div class="text-body2">
+            Información importante sobre la disponibilidad de citas para hoy.
+          </div>
+        </q-card-section>
+
+        <q-card-section>
+          <q-banner class="bg-negative text-white" dense icon="warning">
+            <div class="text-subtitle1">
+              <q-icon name="error" size="sm" class="q-mr-sm" />
+              No hay citas disponibles
+            </div>
+            <div>
+              Lo sentimos, no quedan citas disponibles para el día de hoy. Por favor, intente programar para otro día o contacte con nosotros para más información.
+            </div>
+          </q-banner>
+        </q-card-section>
+
+        <q-card-actions class="flex justify-end">
+          <q-btn color="blue" flat @click="showAlerta = false">
+            Entendido
+          </q-btn>
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
+
   </div>
 </template>
 
@@ -78,6 +109,7 @@ const options = ref<HoraCita[]>([]);
 
 const { access_token, id_user } = useUserData;
 const { nombre_servicio, precio } = useProcesoCompra
+const showAlerta = ref(false);
 
 
 // Definir el locale en español
@@ -104,15 +136,25 @@ const handleDateChange = async () => {
           'Authorization':`Bearer ${access_token}`,
         },
       });
-      console.log(response, 'response')
-      options.value = response.data.horas_disponibles.map((hora:string) => {
-        const formato_hora = hora.split(':')
-        return {
-          label: `${formato_hora[0]}:${formato_hora[1]}`,
-          value: `${formato_hora[0]}:${formato_hora[1]}`,
-        }
-      });
+      console.log(response.data)
+      if(response.data.horas_disponibles.length > 0){
+        options.value = response.data.horas_disponibles.map((hora:string) => {
+          const formato_hora = hora.split(':')
+          return {
+            label: `${formato_hora[0]}:${formato_hora[1]}`,
+            value: `${formato_hora[0]}:${formato_hora[1]}`,
+          }
+        });
+      }else{
+
+        showAlerta.value = true
+
+        date.value = ''
+        time.value.label = ''
+        time.value.value = ''
+      }
     } catch (error) {
+      console.log(error)
       Notify.create({
         message: 'Error al obtener las horas disponibles.',
         type: 'negative',

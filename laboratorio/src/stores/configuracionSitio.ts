@@ -12,6 +12,9 @@ export const configuracionSitio = defineStore('siteConfig', {
       correo_electronico: '',
       numero_telefonico: '',
       activo: false,
+      horario_inicio: '',
+      horario_final: '',
+      direccion: '',
       derechos_reservados: '',
       servicios_clinicos_descripcion: [{
         nombre_servicio: '',
@@ -38,6 +41,9 @@ export const configuracionSitio = defineStore('siteConfig', {
       correo_electronico: parsedSiteConfig.correo_electronico || '',
       numero_telefonico: parsedSiteConfig.numero_telefonico || '',
       activo: parsedSiteConfig.activo || false,
+      horario_inicio: parsedSiteConfig.horario_inicio || '',
+      horario_final: parsedSiteConfig.horario_final || '',
+      direccion: parsedSiteConfig.direccion || '',
       servicios_clinicos_descripcion:  parsedSiteConfig.servicios_clinicos_descripcion || [{
         nombre_servicio: '',
         descripcion: '',
@@ -59,6 +65,9 @@ export const configuracionSitio = defineStore('siteConfig', {
         derechos_reservados: response.data.results[0].derechos_reservados,
         logo: response.data.results[0].logo,
         activo: response.data.results[0].activo,
+        direccion: response.data.results[0].direccion,
+        horario_inicio: response.data.results[0].horario_inicio,
+        horario_final: response.data.results[0].horario_final,
         servicios_clinicos_descripcion: response.data.results[0].servicios_clinicos_descripcion
 
       };
@@ -72,6 +81,9 @@ export const configuracionSitio = defineStore('siteConfig', {
       this.numero_telefonico = siteConfigToStore.numero_telefonico;
       this.correo_electronico = siteConfigToStore.correo_electronico;
       this.activo = siteConfigToStore.activo;
+      this.direccion = siteConfigToStore.direccion;
+      this.horario_inicio = siteConfigToStore.horario_inicio;
+      this.horario_final = siteConfigToStore.horario_final;
       this.derechos_reservados = siteConfigToStore.derechos_reservados;
       this.servicios_clinicos_descripcion = siteConfigToStore.servicios_clinicos_descripcion;
     },
@@ -85,6 +97,9 @@ export const configuracionSitio = defineStore('siteConfig', {
       this.numero_telefonico = '';
       this.correo_electronico = '';
       this.derechos_reservados = '';
+      this.direccion = '';
+      this.horario_inicio = '';
+      this.horario_final = '';
       this.servicios_clinicos_descripcion = [{
         nombre_servicio: '',
         descripcion: '',

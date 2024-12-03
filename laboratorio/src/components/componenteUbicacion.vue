@@ -1,6 +1,45 @@
 <template>
-  <div id="map" style="height: 70%; width: 100%;"></div>
+  <div>
+    <div class="flex column q-gutter-lg">
+      <q-card>
+        <q-card-section style="height: 400px;">
+          <div id="map" style="height: 100%; width: 100%;"></div>
+        </q-card-section>
+      </q-card>
+      <q-card>
+        <q-card-section flat>
+          <q-card class="q-pa-md full-width" flat>
+            <q-card-section flat>
+              <div class="text-h6">Información de Contacto</div>
+            </q-card-section>
+            <q-card-section>
+              <div class="q-mb-md">
+                <div class="flex items-center q-mb-sm ">
+                  <q-icon name="place" size="md" class="q-mr-sm text-grey-7 q-pb-md" />
+                  <p>{{useConfiguracionSitio.direccion !== '' ? useConfiguracionSitio.direccion : 'Direeccion por defecto'}}</p>
+                </div>
+                <div class="flex items-center q-mb-sm">
+                  <q-icon name="phone" size="md" class="q-mr-sm q-pb-md text-grey-7" />
+                  <p>{{ useConfiguracionSitio.numero_telefonico !== '' ? useConfiguracionSitio.numero_telefonico : '+1 (234) 567-8900' }}</p>
+                </div>
+                <div class="flex">
+                  <q-icon name="schedule" size="md" class="q-mr-sm text-grey-7 q-mt-xs q-pb-xl" />
+                  <div>
+                    <p class="text-weight-medium">Horario de Atención:</p>
+                    <ul class="q-pl-md">
+                      <li>Lunes - Viernes: {{useConfiguracionSitio.horario_inicio}}:00 AM - {{useConfiguracionSitio.horario_final}}:00 PM</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </q-card-section>
+          </q-card>
+        </q-card-section>
+      </q-card>
+    </div>
+  </div>
 </template>
+
 
 <script setup lang="ts">
 import { onMounted } from 'vue';
@@ -15,6 +54,9 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
+import { configuracionSitio } from 'stores/configuracionSitio';
+
+const useConfiguracionSitio = configuracionSitio()
 
 onMounted(() => {
   const coordinates = fromLonLat([-100.172028, 25.682861]);
@@ -22,7 +64,6 @@ onMounted(() => {
   const pointFeature = new Feature({
     geometry: new Point(coordinates),
   });
-
 
   pointFeature.setStyle(
     new Style({
@@ -33,7 +74,7 @@ onMounted(() => {
     })
   );
 
-    const vectorSource = new VectorSource({
+  const vectorSource = new VectorSource({
     features: [pointFeature],
   });
 
