@@ -53,7 +53,9 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
+import { configuracionSitio } from 'stores/configuracionSitio';
 
+const useConfiguracionSitio = configuracionSitio()
 
 onMounted(() => {
   const coordinates = fromLonLat([-100.172028, 25.682861]);
