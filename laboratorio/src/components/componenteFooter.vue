@@ -10,16 +10,23 @@
          <div class="flex column full-width justify-center text-justify items-center">
            <div>
              <p> Si tienes alguna duda puedes contactarnos mediante nuestro correo: <b
-               style="color: #096393; cursor: pointer; text-decoration: #a6d2fe">{{useConfiguracionSitio.correo_electronico}}</b> </p>
+               style="color: #096393; cursor: pointer; text-decoration: #a6d2fe">{{
+                 useConfiguracionSitio.correo_electronico !== '' ? useConfiguracionSitio.correo_electronico :
+                   'example@gmail.com'
+               }}</b> </p>
            </div>
            <div>
              <p
              > Tambien puedes contactarnos a nuestro numero telefonico: <b
-               style="color: #096393; cursor: pointer; text-decoration: #a6d2fe">{{useConfiguracionSitio.numero_telefonico}}</b></p>
+               style="color: #096393; cursor: pointer; text-decoration: #a6d2fe">{{
+                 useConfiguracionSitio.numero_telefonico !== '' ? useConfiguracionSitio.numero_telefonico : '+52'
+               }}</b></p>
            </div>
          </div>
           <div>
-            <p> ©{{useConfiguracionSitio.derechos_reservados}} </p>
+            <p> {{
+                useConfiguracionSitio.derechos_reservados !== '' ? `© ${useConfiguracionSitio.derechos_reservados}` : 'Laboratorios VYMAR'
+              }} </p>
           </div>
         </q-toolbar-title>
       </q-toolbar>

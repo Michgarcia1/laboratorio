@@ -78,15 +78,17 @@ const rutas_path = [
 ]
 
 onMounted(async () => {
-  console.log(rt)
-  const response = await backend.get('configuracion-sitio/');
-  if (response.status === 200) {
-    if(response.data.results.length > 0){
-      useConfiguracionSitio.setSiteConfig(response);
-    }else{
-      useConfiguracionSitio.reset()
+  try{
+    const response = await backend.get('configuracion-sitio/');
+    if (response.status === 200) {
+      if(response.data.results.length > 0){
+        useConfiguracionSitio.setSiteConfig(response);
+      }
     }
+  }catch (error) {
+    useConfiguracionSitio.reset()
   }
+
 });
 
 const irAInicio = () => {

@@ -40,7 +40,6 @@
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import 'ol/ol.css';
@@ -54,9 +53,6 @@ import OSM from 'ol/source/OSM';
 import { fromLonLat } from 'ol/proj';
 import Style from 'ol/style/Style';
 import Icon from 'ol/style/Icon';
-import { configuracionSitio } from 'stores/configuracionSitio';
-
-const useConfiguracionSitio = configuracionSitio()
 
 
 onMounted(() => {
@@ -65,6 +61,7 @@ onMounted(() => {
   const pointFeature = new Feature({
     geometry: new Point(coordinates),
   });
+
 
   pointFeature.setStyle(
     new Style({
