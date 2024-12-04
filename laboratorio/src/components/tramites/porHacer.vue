@@ -51,7 +51,30 @@
   </div>
 
   <div v-else>
-    <p>No tenemos nada alv</p>
+    <div class="q-pa-md q-mt-xl flex flex-col items-center justify-center min-h-screen">
+      <div class="text-center">
+        <!-- Icono del calendario -->
+        <q-icon name="event" size="48px" color="blue" />
+
+        <!-- Título y subtítulo -->
+        <h2 class="q-mt-sm text-h5 text-grey-9">No hay citas para hoy</h2>
+        <p class="q-mt-xs text-body2 text-grey-7"></p>
+
+        <!-- Imagen -->
+        <div class="q-mt-md">
+          <img
+            src="/placeholder.svg?height=200&width=300"
+            alt="Calendario vacío"
+            class="q-mx-auto"
+          />
+        </div>
+
+        <!-- Mensaje -->
+        <p class="q-mt-sm text-body2 text-grey-6">
+          No se han registrado citas para el día de hoy.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
