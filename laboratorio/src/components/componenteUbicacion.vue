@@ -57,6 +57,7 @@ import { configuracionSitio } from 'stores/configuracionSitio';
 
 const useConfiguracionSitio = configuracionSitio()
 
+
 onMounted(() => {
   const coordinates = fromLonLat([-100.172028, 25.682861]);
 
@@ -92,6 +93,7 @@ onMounted(() => {
     ],
     view: new View({
       center: coordinates,
+
       zoom: 15,
     }),
   });

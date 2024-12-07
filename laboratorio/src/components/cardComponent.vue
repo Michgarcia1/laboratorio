@@ -11,7 +11,7 @@
         <div>Folio: <strong>{{ cita.numero_cita }}</strong></div>
       </div>
 
-      <div class="flex justify-end q-mr-xs items-en">
+      <div class="flex justify-end q-mr-md items-en">
         <q-btn no-caps
                v-if="!useUserData.is_superuser"
                :disable="cita.resultados.length !== 1"
@@ -67,7 +67,7 @@ const descargarResultado = (url: string) => {
   const enlace = document.createElement('a');
   enlace.href = `${baseUrl}${url}`;
   enlace.target = '_blank';
-  enlace.download = ''; 
+  enlace.download = '';
   document.body.appendChild(enlace);
   enlace.click();
   document.body.removeChild(enlace);

@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md" v-if="showContent">
     <div class="full-width flex items-center justify-center">
-      <h1 class="text-h4 q-mb-md">Citas programadas para el dia de hoy :)!</h1>
+      <h1 class="text-h4 q-mb-md">Citas programadas para el dia de hoy</h1>
     </div>
     <q-card>
       <q-card-section >
